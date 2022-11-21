@@ -26,7 +26,7 @@ public class UserController {
     }
 
     // 1.회원가입 페이지 이동 메소드
-    @RequestMapping(value = "registr", method = RequestMethod.GET)
+    @RequestMapping(value = "register", method = RequestMethod.GET)
     public String moveToRegister() {return "/user/register";}
 
     // 2. 회원 가입 메소드
