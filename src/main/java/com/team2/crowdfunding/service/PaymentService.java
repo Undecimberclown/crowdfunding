@@ -9,5 +9,5 @@ public class PaymentService {
     @Autowired
     private SqlSession session;
 
-    private final String NAMESPACE = "PaymentMapper";
+    private final String NAMESPACE = "PaymentMapper.xml";
 }
