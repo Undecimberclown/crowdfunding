@@ -19,10 +19,29 @@ public class CommodityController {
     private CommodityService commodityService;
 
     @PostMapping("insert")
-    public Map<String, Object> selectAll(CommodityDTO commodityDTO){
+    public Map<String, Object> insert(CommodityDTO commodityDTO){
         Map<String, Object> resultMap = new HashMap<>();
 
         commodityService.insert(commodityDTO);
+
+        return resultMap;
+    }
+
+    @PostMapping("update")
+    public Map<String, Object> update(CommodityDTO commodityDTO){
+        Map<String, Object> resultMap = new HashMap<>();
+
+        commodityService.update(commodityDTO);
+        resultMap.put("success", "success");
+
+        return resultMap;
+    }
+
+    @PostMapping("delete")
+    public Map<String, Object> delete(int id){
+        Map<String, Object> resultMap = new HashMap<>();
+
+        commodityService.delete(id);
 
         return resultMap;
     }
