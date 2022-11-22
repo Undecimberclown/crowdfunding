@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="CommodityMapper">
+    <select id="selectAll" parameterType="int" resultType="hashMap">
+        SELECT c.`title`, c.`content`, c.`price`
+        FROM `commodity` AS c
+        WHERE c.`project_id` = #{id}
+    </select>
+
+    <insert id="insert" parameterType="commodityDTO">
+        INSERT INTO `commodity` (`project_id`, `title`, `content`, `price`)
+        VALUES (`#{project_id`}, #{title}, #{content}, #{price})
+    </insert>
+</mapper>
