@@ -71,7 +71,7 @@ public class ProjectController {
     public String showOne(HttpSession session, Model model, @PathVariable int id){
 
         if (session.getAttribute("logIn") == null) {
-            return "redirect:/";
+            return "rdirect:/";
         }
         model.addAttribute("project", projectService.selectOne(id));
         model.addAttribute("logIn", (UserDTO) session.getAttribute("logIn"));
