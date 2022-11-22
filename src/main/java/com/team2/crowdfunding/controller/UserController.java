@@ -61,7 +61,7 @@ public class UserController {
     // 4. 회원 정보 수정 페이지 이동 메소드
     @GetMapping("update")
     public String goUpdatePage(HttpSession session, Model model){
-        if(session.getAttribute("logInt") == null) {
+        if(session.getAttribute("logIn") == null) {
             return "redirect:/";
         }
         return "/user/update";
