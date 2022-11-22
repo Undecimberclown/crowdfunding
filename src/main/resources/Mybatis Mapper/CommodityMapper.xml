@@ -8,8 +8,27 @@
         WHERE c.`project_id` = #{id}
     </select>
 
+    <select id="selectOne" parameterType="int" resultType="hashMap">
+        SELECT c.`title`, c.`content`, c.`price`
+        FROM `commodity` AS c
+        WHERE c.`id` = #{id}
+    </select>
+
     <insert id="insert" parameterType="commodityDTO">
         INSERT INTO `commodity` (`project_id`, `title`, `content`, `price`)
         VALUES (`#{project_id`}, #{title}, #{content}, #{price})
     </insert>
+
+    <update id="update" parameterType="commodityDTO">
+        UPDATE `commodity` SET
+        `title` = #{title},
+        `content` = #{content},
+        `price` = #{price}
+        WHERE `id` = #{id}
+    </update>
+
+    <delete id="delete" parameterType="int">
+        DELETE FROM `commodity`
+        WHERE `id` = #{id}
+    </delete>
 </mapper>
