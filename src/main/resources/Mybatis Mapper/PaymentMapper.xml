@@ -2,6 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="crowdfunding.PaymentMapper">
+    <update id="fillPoint" parameterType="map">
+        UPDATE `payment` SET
+        `point` = `point` + #{sumPoint}
+        WHERE `user_id` = #{user_id}
+    </update>
 
-
+    <update id="payPoint" parameterType="map">
+        UPDATE `payment` SET
+        `point` = `point - #{minusPoint}
+        WHERE `user_id` = #{user_id}
+    </update>
 </mapper>
