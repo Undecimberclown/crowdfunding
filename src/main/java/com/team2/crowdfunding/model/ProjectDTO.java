@@ -7,7 +7,7 @@ import java.sql.Timestamp;
 @Data
 public class ProjectDTO {
     private int id;
-    private int user_id;
+    private int writer_id;
     private String img_url;
     private String title;
     private String content;

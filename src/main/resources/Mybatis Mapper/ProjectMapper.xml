@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="CommodityMapper">
+    <select id="selectAll" resultType="hashMap" parameterType="hashMap">
+        SELECT p.`id`, p.`title`, p.`content`, u.`nickname`, p.`img_url`, p.`start_date`, p.`end_date`
+        FROM `project` AS p
+        INNER JOIN `user` AS u
+        ON p.`writer_id` = u.`id`
+        ORDER BY p.`id` DESC
+        LIMIT ${start}, ${size}
+    </select>
+    <select id="selectOne" parameterType="int" resultType="hashMap">
+        SELECT p.`id`, p.`title`, p.`content`, u.`nickname`, p.`img_url`, p.`start_date`, p.`end_date`
+        FROM `project` AS p
+        INNER JOIN `user` AS u
+        ON p.`writer_id` = u.`id`
+        WHERE p.`id` = #{id}
+    </select>
+    <select id="countAll" resultType="int">
+        SELECT COUNT(`id`) FROM `project`
+    </select>
+    <insert id="insert" parameterType="projectDTO" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO `project`(`title`, `img_url`, `content`, `writer_id`, `start_date`, `end_date`)
+        VALUES(#{title}, #{img_url}, #{content}, #{writer_id}, NOW(), #{end_date})
+    </insert>
+    <update id="update" parameterType="projectDTO">
+        UPDATE `project` SET
+        `title` = #{title}
+        `img_url` = #{img_url}
+        `content` = #{content}
+        `start_date` = #{start_date}
+    </update>
+    <delete id="delete" parameterType="int">
+        DELETE FROM `project`
+        WHERE `id` = #{id}
+    </delete>
+</mapper>
