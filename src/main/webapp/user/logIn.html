@@ -30,11 +30,11 @@ html, body {
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  height: 100%;
+  height: 70%;
 }
 
 #loginBox {
-  width: 300px;
+  width: 350px;
   text-align: center;
   background-color: #ffffff;
 }
@@ -49,16 +49,25 @@ html, body {
   padding-top: 5px;
   min-width: 65px;
 }
+#register-box{
+    margin: 0 10px;
+}
 .button-login-box {
   margin: 10px 0;
 }
+.button-register-box{
+  margin: 10px 0;
+}
 #loginBoxTitle {
+  width:300px;
   color:#000000;
   font-weight: bold;
   font-size: 40px;
   text-transform: uppercase;
   padding: 5px;
+  margin:auto;
   margin-bottom: 20px;
+
   background: linear-gradient(to right, #270a09, #8ca6ce);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -88,10 +97,10 @@ html, body {
                 <button type="button" class="btn btn-primary btn-xs" style="width:100%" onclick="auth()">로그인</button>
             </div>
         </div>
-        <div id="registerBox">
-        <div class="nav-item">
-            <button class="nav-link btn" onclick="moveToRegister()">회원가입</button>
-        </div>
+        <div id="register-box">
+            <div class="button-register-box">
+                <button class="btn btn-success btn-xs" style="width:100%" onclick="moveToRegister()">회원가입</button>
+            </div>
         </div>
     </div>
 
