@@ -100,6 +100,47 @@ html, body {
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
 <script>
+    let validUsername = false;
+    let validPassword = false;
+
+    function validateUsername(){
+        let data = JSON.stringify({
+            username: $('#username').val();
+        });
+
+        $.ajax({
+            url: '/user/validate',
+            type: 'post',
+            data: data,
+            dataType: 'json',
+            contentType: 'application/json; charset=UTF-8',
+            success: function(data, status, xhr){
+                if(data.message == 'success'){
+                    validUsername = true;
+                } else{
+                    Swal.fire({
+                        icon: 'error',
+                        text: '이미 존재하는 아이디입니다.'
+                    });
+                }
+            }
+
+        });
+    }
+
+    function validatePassword(){
+        let original = $('#password').val();
+        let check = $('#passwordChk').val();
+
+        if(original != check){
+            $('#passwordChk').addClass('is-invalid');
+            validPassword = false;
+        } else{
+            $('#passwordChk').removeClass('is-invalid');
+            validPassword = true;
+        }
+    }
+
     function register(){
         let userData({
             username: $('#username'),
@@ -120,7 +161,7 @@ html, body {
                         title: '회원 가입 성공',
                         text: '회원이 되신 것을 축하드립니다!'
                     }).then((result) => {
-                        location.href='/';
+                        location.href='/user/logIn.html';
                     });
                 }
             }
