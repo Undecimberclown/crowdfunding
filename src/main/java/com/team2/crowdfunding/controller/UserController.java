@@ -3,16 +3,16 @@ package com.team2.crowdfunding.controller;
 import com.team2.crowdfunding.model.UserDTO;
 import com.team2.crowdfunding.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.mail.MailProperties;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/user/")
@@ -46,16 +46,20 @@ public class UserController {
     }
 
     // 3. 로그인 메소드
+    @ResponseBody
     @PostMapping(value = "auth")
-    public String auth(HttpSession session,Model model, UserDTO userDTO){
+    public Map<String, Object> auth(HttpSession session, @RequestBody UserDTO userDTO){
+        Map<String, Object> resultMap = new HashMap<>();
         UserDTO logIn = userService.auth(userDTO);
 
         if(logIn != null) {
             session.setAttribute("logIn", logIn);
-            return "redirect:/board/showAll/1";
+            resultMap.put("message", "success");
         } else {
-            return "/";
+            resultMap.put("message", "fail");
         }
+
+        return resultMap;
     }
 
     // 4. 회원 정보 수정 페이지 이동 메소드

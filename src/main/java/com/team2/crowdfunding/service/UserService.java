@@ -11,7 +11,7 @@ public class UserService {
     @Autowired
     private SqlSession session;
 
-    private final String NAMESPACE = "UserMapper.xml";
+    private final String NAMESPACE = "UserMapper";
 
     public boolean validateUsername(UserDTO userDTO){
         return session.selectOne(NAMESPACE + ".validateUsername", userDTO);
