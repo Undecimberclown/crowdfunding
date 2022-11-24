@@ -14,8 +14,6 @@
         VALUES (#{user_id}, #{commodity_id}, #{point})
     </insert>
 
-
-
     <update id="fillPoint" parameterType="paymentDTO">
         UPDATE `payment` SET
         `point` = `point` + #{sumPoint}
