@@ -22,7 +22,7 @@
         WHERE `user_id` = #{user_id}
     </update>
 
-    <update id="payPoint" parameterType="map">
+    <update id="payPoint" parameterType="paymentDTO">
         UPDATE `payment` SET
         `point` = `point - #{minusPoint}
         WHERE `user_id` = #{user_id}

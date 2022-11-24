@@ -27,7 +27,7 @@ public class PaymentService {
         session.update(NAMESPACE + "fillPoint", map);
     }
 
-    public void payPoint(Map<String, Integer> map){
+    public void payPoint(PaymentDTO map){
         session.update(NAMESPACE + ".payPoint", map);
     }
 }

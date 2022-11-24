@@ -1,6 +1,7 @@
 package com.team2.crowdfunding.controller;
 
 import com.team2.crowdfunding.model.PaymentDTO;
+import com.team2.crowdfunding.model.ProjectDTO;
 import com.team2.crowdfunding.model.UserDTO;
 import com.team2.crowdfunding.service.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,21 @@ public class PaymentController {
 
 
         return "redirect:/payment/charge";
+    }
+
+    @GetMapping("pay")
+    public String pay(HttpSession session, PaymentDTO paymentDTO, ProjectDTO projectDTO, int minusPoint){
+        UserDTO logIn = (UserDTO) session.getAttribute("logIn");
+        if (logIn == null){
+            return "redirect:/user/logIn";
+        } else {
+            paymentDTO.setUser_id(logIn.getId());
+            paymentDTO.setMinusPoint(minusPoint);
+            paymentService.payPoint(paymentDTO);
+        }
+
+
+        return "redirect:/board/showOne/" + projectDTO.getId();
     }
 
 
