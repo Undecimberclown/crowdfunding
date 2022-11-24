@@ -1,5 +1,6 @@
 package com.team2.crowdfunding.controller;
 
+import com.team2.crowdfunding.model.PaymentDTO;
 import com.team2.crowdfunding.model.UserDTO;
 import com.team2.crowdfunding.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,9 @@ public class UserController {
     UserService userService;
 
     @Autowired
+    PaymentController paymentController;
+
+    @Autowired
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
@@ -31,7 +35,7 @@ public class UserController {
 
     // 2. 회원 가입 메소드
     @PostMapping(value = "register")
-    public String register(Model model, UserDTO userDTO){
+    public String register(Model model, UserDTO userDTO, PaymentDTO paymentDTO){
         if(!userService.validateUsername(userDTO)){
             model.addAttribute("userDTO", userDTO);
 
@@ -41,6 +45,9 @@ public class UserController {
         userDTO.setPassword(passwordEncoder().encode(userDTO.getPassword()));
 
         userService.register(userDTO);
+
+        paymentController.insert(paymentDTO);
+
 
         return "redirect:/";
     }
