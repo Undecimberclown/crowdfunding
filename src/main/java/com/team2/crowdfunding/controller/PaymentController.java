@@ -31,7 +31,7 @@ public class PaymentController {
         model.addAttribute("paymentDTO", paymentService.selectOne(id));
         model.addAttribute("logIn", logIn);
 
-        return "/user/pointShowOne";
+        return "/user/pointShowOne";    
 
     }
 
