@@ -14,7 +14,7 @@ public class UserService {
     private final String NAMESPACE = "UserMapper";
 
     public boolean validateUsername(UserDTO userDTO){
-        return session.selectOne(NAMESPACE + ".validateUsername", userDTO);
+        return session.selectOne(NAMESPACE + ".validateUsername", userDTO) == null;
     }
 
     public void register(UserDTO userDTO){session.insert(NAMESPACE + ".register", userDTO);}

@@ -45,6 +45,20 @@ public class UserController {
         return "redirect:/";
     }
 
+    @ResponseBody
+    @PostMapping("validate")
+    public Map<String, Object> validateUsername(@RequestBody UserDTO userDTO){
+        Map<String, Object> resultMap = new HashMap<>();
+
+        if(userService.validateUsername(userDTO)){
+            resultMap.put("message", "success");
+        } else{
+            resultMap.put("message", "fail");
+        }
+
+        return resultMap;
+    }
+
     // 3. 로그인 메소드
     @ResponseBody
     @PostMapping(value = "auth")
