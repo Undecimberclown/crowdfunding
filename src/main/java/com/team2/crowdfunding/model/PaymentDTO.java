@@ -8,4 +8,5 @@ public class PaymentDTO {
     private int user_id;
     private int commodity_id;
     private int point;
+    private int sumPoint;
 }
