@@ -90,6 +90,8 @@ html, body {
 
 
 
+
+
 </style>
 <body class="text-center">
 <!--NAV 바 -->
@@ -101,14 +103,14 @@ html, body {
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
-                <ul class="navbar-nav ml-auto mb-2 mb-lg-0" id="navbarUl">
-                    <li class="nav-item">
-                        <button class="nav-link btn text-dark" onclick="location.href='logIn.html'">로그인</button>
-                    </li>
-                    <li class="nav-item">
-                        <button class="nav-link btn text-dark" onclick="location.href='register.html'">회원가입</button>
-                    </li>
-                </ul>
+            <ul class="navbar-nav ml-auto mb-2 mb-lg-0" id="navbarUl">
+                <li class="nav-item">
+                    <button class="nav-link btn text-dark" onclick="location.href='logIn.html'">로그인</button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link btn text-dark" onclick="location.href='register.html'">회원가입</button>
+                </li>
+            </ul>
         </div>
     </div>
 </nav>
@@ -121,22 +123,24 @@ html, body {
         <!-- 로그인 페이지 타이틀 -->
         <div id="loginBoxTitle">크라우드 펀딩 로그인</div>
         <!-- 아이디, 비번, 버튼 박스 -->
+
         <div id="inputBox">
-            <div class="form-floating mb-3">
-                <input class="form-control" id="username">
-                <label for="username">아이디</label>
-            </div>
-            <div class="form-floating">
-                <input class="form-control" type="password" id="password">
-                <label for="password">비밀번호</label>
-            </div>
-            <div class="button-login-box">
-                <button type="button" class="btn btn-primary btn-xs" style="width:100%">로그인</button>
-            </div>
+                <div class="form-floating mb-3">
+                    <input class="form-control" id="username">
+                    <label for="username">아이디</label>
+                </div>
+                <div class="form-floating">
+                    <input class="form-control" type="password" id="password">
+                    <label for="password">비밀번호</label>
+                </div>
+                <div class="button-login-box">
+                    <button type="button" class="btn btn-primary btn-xs" style="width:100%" onclick="auth()">로그인</button>
+                </div>
             <div class="button-register-box">
                 <button class="btn btn-success btn-xs" style="width:100%" onclick="moveToRegister()">회원가입</button>
             </div>
         </div>
+
     </div>
 
 </div>
@@ -174,6 +178,8 @@ html, body {
     function moveToRegister(){
         document.location.href='/user/register.html';
     }
+
+
 
 
 
