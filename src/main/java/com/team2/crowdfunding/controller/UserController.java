@@ -1,5 +1,6 @@
 package com.team2.crowdfunding.controller;
 
+import com.sun.jdi.ObjectCollectedException;
 import com.team2.crowdfunding.model.PaymentDTO;
 import com.team2.crowdfunding.model.UserDTO;
 import com.team2.crowdfunding.service.UserService;
@@ -31,12 +32,14 @@ public class UserController {
 
     // 1.회원가입 페이지 이동 메소드
     @RequestMapping(value = "register", method = RequestMethod.GET)
-    public String moveToRegister() {return "/user/register";}
+    public String moveToRegister() {
+        return "/user/register";
+    }
 
     // 2. 회원 가입 메소드
     @PostMapping(value = "register")
-    public String register(Model model, UserDTO userDTO, PaymentDTO paymentDTO){
-        if(!userService.validateUsername(userDTO)){
+    public String register(Model model, UserDTO userDTO, PaymentDTO paymentDTO) {
+        if (!userService.validateUsername(userDTO)) {
             model.addAttribute("userDTO", userDTO);
 
             return "/user/register";
@@ -52,14 +55,20 @@ public class UserController {
         return "redirect:/";
     }
 
+    /**
+     * 아이디 중복체크
+     *
+     * @param userDTO 중복체크할 아이디 정보를 담은 값
+     * @return 아이디가 중복이 아니라면 success put, 중복이면 fail put
+     */
     @ResponseBody
     @PostMapping("validate")
-    public Map<String, Object> validateUsername(@RequestBody UserDTO userDTO){
+    public Map<String, Object> validateUsername(@RequestBody UserDTO userDTO) {
         Map<String, Object> resultMap = new HashMap<>();
 
-        if(userService.validateUsername(userDTO)){
+        if (userService.validateUsername(userDTO)) {
             resultMap.put("message", "success");
-        } else{
+        } else {
             resultMap.put("message", "fail");
         }
 
@@ -69,11 +78,11 @@ public class UserController {
     // 3. 로그인 메소드
     @ResponseBody
     @PostMapping(value = "auth")
-    public Map<String, Object> auth(HttpSession session, @RequestBody UserDTO userDTO){
+    public Map<String, Object> auth(HttpSession session, @RequestBody UserDTO userDTO) {
         Map<String, Object> resultMap = new HashMap<>();
         UserDTO logIn = userService.auth(userDTO);
 
-        if(logIn != null) {
+        if (logIn != null) {
             session.setAttribute("logIn", logIn);
             resultMap.put("message", "success");
         } else {
@@ -85,8 +94,8 @@ public class UserController {
 
     // 4. 회원 정보 수정 페이지 이동 메소드
     @GetMapping("update")
-    public String goUpdatePage(HttpSession session, Model model){
-        if(session.getAttribute("logInt") == null) {
+    public String goUpdatePage(HttpSession session, Model model) {
+        if (session.getAttribute("logInt") == null) {
             return "redirect:/";
         }
         return "/user/update";
@@ -94,13 +103,13 @@ public class UserController {
 
     // 5. 회원 정보 수정 메소드
     @PostMapping("update")
-    public String update(HttpSession session, Model model, UserDTO userDTO, String newPassword){
-        if(userService.auth(userDTO) == null){
+    public String update(HttpSession session, Model model, UserDTO userDTO, String newPassword) {
+        if (userService.auth(userDTO) == null) {
             model.addAttribute("userDTO", (UserDTO) session.getAttribute("logIn"));
 
         }
         UserDTO logIn = (UserDTO) session.getAttribute("logIn");
-        if(!newPassword.isEmpty()){
+        if (!newPassword.isEmpty()) {
             logIn.setPassword(newPassword);
         }
 
@@ -111,11 +120,34 @@ public class UserController {
         session.removeAttribute("logIn");
         return "redirect:/";
     }
+
+    @ResponseBody
+    @PostMapping("logInChk")
+    public Map<String, Object> logInChk(HttpSession session) {
+        UserDTO logIn = (UserDTO) session.getAttribute("logIn");
+
+        Map<String, Object> resultMap = new HashMap<>();
+        if (logIn != null) {
+            resultMap.put("message", "true");
+        } else {
+            resultMap.put("message", "false");
+        }
+
+        System.out.println(resultMap.get("message"));
+
+        return resultMap;
+    }
+
     // 6.회원 로그아웃 메소드
-    @GetMapping("logOut")
-    public String logOut(HttpSession session){
+    @ResponseBody
+    @PostMapping("logOut")
+    public Map<String, Object> logOut(HttpSession session) {
         session.removeAttribute("logIn");
-        return "redirect:/";
+
+        Map<String, Object> resultMap = new HashMap<>();
+        resultMap.put("message", "success");
+
+        return resultMap;
     }
 
 }

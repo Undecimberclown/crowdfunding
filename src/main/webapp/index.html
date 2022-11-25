@@ -46,7 +46,7 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <button class="nav-link btn" onclick="moveToLogIn()">로그인/회원가입</button>
+                    <button class="nav-link btn" id="logInBtn" onclick="moveToLogIn()">로그인/회원가입</button>
                 </li>
             </ul>
             <form class="d-flex" role="search">
@@ -119,16 +119,46 @@
                 </div>
             </div>
         </div>
-
     </div>
 </div>
 
 <script>
+    $(document).ready(function(){
+        $.ajax({
+            url: '/user/logInChk',
+            type: 'post',
+            success: function(data, status, xhr){
+                if(data.message == 'true'){
+                    $('#logInBtn').text('로그아웃');
+                    $('#logInBtn').attr('onclick', 'logOut()');
+                }
+                else if(data.message == 'false'){
+                    $('#logInBtn').text('로그인/회원가입');
+                    $('#logInBtn').attr('onclick', 'moveToLogIn()');
+                }
+            }
+        });
+    });
+
     function moveToLogIn(){
         document.location.href='/user/logIn.html';
     }
+
     function moveToProject(){
         document.location.href='/board/projectOne.html';
+    }
+
+    function logOut(){
+        $.ajax({
+            url: 'user/logOut',
+            type: 'post',
+            success: function(data, status, xhr){
+                if(data.message == 'success'){
+                    $('#logInBtn').text('로그인/회원가입');
+                    $('#logInBtn').attr('onclick', 'moveToLogIn()');
+                }
+            }
+        });
     }
 
 
