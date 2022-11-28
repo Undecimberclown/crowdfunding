@@ -144,6 +144,18 @@ public class UserController {
 
         return resultMap;
     }
+    // 7. 회원가입 메소드
+    @ResponseBody
+    @PostMapping("register")
+    public Map<String, Object> register(@RequestBody UserDTO userDTO){
+        Map<String, Object> resultMap = new HashMap<>();
+
+        userService.register(userDTO);
+
+        resultMap.put("message", "success");
+
+        return resultMap;
+    }
 
 }
 
