@@ -36,22 +36,6 @@ public class UserController {
         return "/user/register";
     }
 
-    // 2. 회원 가입 메소드
-    @ResponseBody
-    @PostMapping(value = "register")
-    public Map<String, Object> register(Model model, @RequestBody UserDTO userDTO, PaymentDTO paymentDTO) {
-        Map<String, Object> resultMap = new HashMap<>();
-
-        userDTO.setPassword(passwordEncoder().encode(userDTO.getPassword()));
-
-        userService.register(userDTO);
-        resultMap.put("message", "success");
-        paymentController.insert(paymentDTO);
-
-
-        return resultMap;
-    }
-
     /**
      * 아이디 중복체크
      *
