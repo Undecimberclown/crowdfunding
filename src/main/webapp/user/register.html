@@ -121,7 +121,7 @@ html, body {
                 <label for="nickname">닉네임</label>
             </div>
             <div class="form-floating mb-2">
-                <input class="form-control" type="password" id="password">
+                <input class="form-control" type="password" id="password" onkeyup="validatePassword()">
                 <label for="password">비밀번호</label>
             </div>
             <div class="form-floating mb-2">
@@ -129,7 +129,7 @@ html, body {
                 <label for="passwordChk">비밀번호 확인</label>
             </div>
             <div class="button-login-box" >
-                <button type="button" class="btn btn-success btn-xs" style="width:100%" id="registerBtn" onclick="register()" disabled>회원가입</button>
+                <button type="button" class="btn btn-success btn-xs" style="width:100%" id="registerBtn" onclick="register()" disabled="">회원가입</button>
             </div>
         </div>
 
@@ -143,6 +143,10 @@ html, body {
 <script>
     let validUsername = false;
     let validPassword = false;
+
+    var registerBtn = document.getElementById('button');
+
+    registerBtn.disabled = true;
 
     function validateUsername(){
         let data = JSON.stringify({
@@ -173,6 +177,9 @@ html, body {
                         text: '이미 존재하는 아이디입니다.'
                     });
                 }
+                activeRegister();
+
+
             }
 
         });
@@ -189,11 +196,17 @@ html, body {
             $('#passwordChk').removeClass('is-invalid');
             validPassword = true;
         }
+        activeRegister();
+        console.log(validUsername, validPassword);
+
     }
 
     function activeRegister(){
         if(validUsername && validPassword && $('#nickname').val() != ""){
-            $('#registerBtn').removeAttr('disabled');
+            $registerBtn = $('#registerBtn').attr('disabled',false);
+
+        } else{
+            $registerBtn = $('#registerBtn').attr('disabled', true);
         }
     }
 
@@ -207,7 +220,7 @@ html, body {
         $.ajax({
             url: '/user/register',
             type: 'post',
-            data: userdata,
+            data: userData,
             dataType: 'json',
             contentType: 'application/json; charset=UTF-8',
             success: function(data, status, xhr){
