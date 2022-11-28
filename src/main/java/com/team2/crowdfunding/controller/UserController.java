@@ -37,22 +37,19 @@ public class UserController {
     }
 
     // 2. 회원 가입 메소드
+    @ResponseBody
     @PostMapping(value = "register")
-    public String register(Model model, UserDTO userDTO, PaymentDTO paymentDTO) {
-        if (!userService.validateUsername(userDTO)) {
-            model.addAttribute("userDTO", userDTO);
-
-            return "/user/register";
-        }
+    public Map<String, Object> register(Model model, @RequestBody UserDTO userDTO, PaymentDTO paymentDTO) {
+        Map<String, Object> resultMap = new HashMap<>();
 
         userDTO.setPassword(passwordEncoder().encode(userDTO.getPassword()));
 
         userService.register(userDTO);
-
+        resultMap.put("message", "success");
         paymentController.insert(paymentDTO);
 
 
-        return "redirect:/";
+        return resultMap;
     }
 
     /**
@@ -132,8 +129,6 @@ public class UserController {
         } else {
             resultMap.put("message", "false");
         }
-
-        System.out.println(resultMap.get("message"));
 
         return resultMap;
     }
