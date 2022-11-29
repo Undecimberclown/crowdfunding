@@ -48,6 +48,9 @@
                 <li class="nav-item">
                     <button class="nav-link btn" id="logInBtn" onclick="moveToLogIn()">로그인/회원가입</button>
                 </li>
+                <li class="nav-item">
+                    <button class="nav-link btn" id="projectBtn" onclick="moveToProjectMake()">프로젝트 시작하기</button>
+                </li>
             </ul>
             <form class="d-flex" role="search">
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
@@ -148,6 +151,9 @@
         document.location.href='/board/projectOne.html';
     }
 
+   function moveToProjectMake(){
+        document.location.href='/board/projectMake.html';
+    }
     function logOut(){
         $.ajax({
             url: 'user/logOut',
@@ -160,6 +166,7 @@
             }
         });
     }
+
 
 
 </script>

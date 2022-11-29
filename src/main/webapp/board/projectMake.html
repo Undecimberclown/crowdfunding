@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <title>CKEditor</title>
+</head>
+<style>
+  .ck-editor__editable { height: 400px; }
+</style>
+<body>
+
+<h1>CKEditor</h1>
+
+<form action="" method="POST">
+  <textarea name="text" id="editor"></textarea>
+  <p><input type="submit" value="전송"></p>
+    <!-- ckeditor -->
+<script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/ckeditor.js"></script>
+    <!-- 한글 설정 -->
+<script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/translations/ko.js"></script>
+<script>
+  ClassicEditor.create( document.querySelector( '#editor' ), {
+    language: "ko"
+  } );
+</script>
+</body>
+</html>
