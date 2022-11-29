@@ -14,12 +14,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @Controller
 @RequestMapping("/project/")
-public class ProjectController {
+                public class ProjectController {
     @Autowired
     ProjectService projectService;
 
@@ -35,7 +36,11 @@ public class ProjectController {
 
         session.setAttribute("logIn", logIn);
 
+        Map<String, Object> map = new HashMap<>();
         List<Map<Object, Object>> list = projectService.selectAll(pageNo, PAGE_SIZE);
+        map.put("message", "success");
+        map.put("data", list);
+
         model.addAttribute("list", list);
         int totalCount = projectService.countAll();
         int totalPage = totalCount / PAGE_SIZE;
