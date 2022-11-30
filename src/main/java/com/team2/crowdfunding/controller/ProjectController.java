@@ -7,10 +7,7 @@ import com.team2.crowdfunding.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
@@ -28,15 +25,15 @@ import java.util.Map;
     UserService userService;
 
     private final int PAGE_SIZE = 15;
-
-    @GetMapping(value = "showAll")
-    public Map<String, Object> showAll(){
-
-
+    @ResponseBody
+    @GetMapping(value = "selectAll")
+    public Map<String, Object> selectAll(){
         Map<String, Object> map = new HashMap<>();
         List list = projectService.selectAll();
         map.put("message", "success");
         map.put("data", list);
+
+        System.out.println(list);
 
         return map;
     }

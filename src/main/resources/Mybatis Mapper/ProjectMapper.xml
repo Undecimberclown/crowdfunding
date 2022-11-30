@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="crowdfunding.ProjectMapper">
-    <select id="selectAll" resultType="hashMap">
+<mapper namespace="ProjectMapper">
+        <select id="selectAll" resultType="hashMap">
         SELECT p.`id`, p.`title`, p.`content`, u.`nickname`, p.`img_url`, p.`start_date`, p.`end_date`
         FROM `project` AS p
         INNER JOIN `user` AS u
