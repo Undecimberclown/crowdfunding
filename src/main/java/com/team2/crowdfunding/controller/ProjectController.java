@@ -29,47 +29,16 @@ import java.util.Map;
 
     private final int PAGE_SIZE = 15;
 
-    @GetMapping(value = "showAll/{pageNo}")
-    public String showAll(Principal principal, HttpSession session, Model model, @PathVariable int pageNo){
-        UserDTO logIn = userService.selectByUsername(principal.getName());
-        logIn.setPassword(null);
+    @GetMapping(value = "showAll")
+    public Map<String, Object> showAll(){
 
-        session.setAttribute("logIn", logIn);
 
         Map<String, Object> map = new HashMap<>();
-        List<Map<Object, Object>> list = projectService.selectAll(pageNo, PAGE_SIZE);
+        List list = projectService.selectAll();
         map.put("message", "success");
         map.put("data", list);
 
-        model.addAttribute("list", list);
-        int totalCount = projectService.countAll();
-        int totalPage = totalCount / PAGE_SIZE;
-        if(totalCount % PAGE_SIZE != 0) {
-            totalPage++;
-        }
-
-        int startPage = 1;
-        int endPage = 5;
-        if(pageNo > 3){
-            startPage = pageNo -2;
-            endPage = pageNo + 2;
-        }
-
-        if (pageNo > totalPage - 3) {
-            startPage = totalPage - 4;
-            endPage = totalPage;
-        }
-        if (totalPage < 5) {
-            endPage = totalPage;
-            startPage = 1;
-        }
-
-        model.addAttribute("totalPage", totalPage);
-        model.addAttribute("currentPage", pageNo);
-        model.addAttribute("startPage", startPage);
-        model.addAttribute("endPage", endPage);
-
-        return "/board/printAll";
+        return map;
     }
 
     @GetMapping("showOne/{id}")

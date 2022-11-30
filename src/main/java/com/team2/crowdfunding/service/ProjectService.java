@@ -17,12 +17,8 @@ public class ProjectService {
     private final String NAMESPACE = "ProjectMapper";
     private final int PAGE_SIZE = 6;
 
-    public List<Map<Object, Object>> selectAll(int page, int size){
-        HashMap<String, Integer> limits = new HashMap<>();
-        limits.put("start", (page -1) * size);
-        limits.put("size", size);
-
-        return session.selectList(NAMESPACE + ".selectAll", limits);
+    public List<HashMap> selectAll(){
+        return session.selectList(NAMESPACE + ".selectAll");
     }
 
     public void insert(ProjectDTO projectDTO){

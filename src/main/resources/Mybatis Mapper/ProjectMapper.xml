@@ -2,13 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="crowdfunding.ProjectMapper">
-    <select id="selectAll" resultType="hashMap" parameterType="hashMap">
+    <select id="selectAll" resultType="hashMap">
         SELECT p.`id`, p.`title`, p.`content`, u.`nickname`, p.`img_url`, p.`start_date`, p.`end_date`
         FROM `project` AS p
         INNER JOIN `user` AS u
         ON p.`writer_id` = u.`id`
         ORDER BY p.`id` DESC
-        LIMIT ${start}, ${size}
     </select>
     <select id="selectOne" parameterType="int" resultType="hashMap">
         SELECT p.`id`, p.`title`, p.`content`, u.`nickname`, p.`img_url`, p.`start_date`, p.`end_date`
