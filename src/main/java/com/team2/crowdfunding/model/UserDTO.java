@@ -9,4 +9,7 @@ public class UserDTO {
     private String password;
     private String nickname;
     private String role;
+    private int point;
+    private int minusPoint;
+    private int plusPoint;
 }
