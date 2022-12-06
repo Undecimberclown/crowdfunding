@@ -23,12 +23,7 @@
     </update>
     <update id="charge" parameterType="userDTO">
         UPDATE `user` SET
-        `point` = `point` + #{sumPoint}
-        WHERE `id` = #{id}
-    </update>
-    <update id="pay" parameterType="userDTO">
-        UPDATE `user` SET
-        `point` = `point` + #{minusPoint}
+        `point` = #{point}
         WHERE `id` = #{id}
     </update>
 </mapper>

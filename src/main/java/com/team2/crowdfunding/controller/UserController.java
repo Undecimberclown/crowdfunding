@@ -140,6 +140,12 @@ public class UserController {
 
         return resultMap;
     }
+    @GetMapping("ChargePoint")
+    public int ChargePoint(@RequestBody UserDTO userDTO){
+
+        userService.chargePoint(userDTO);
+
+    }
 
 }
 
