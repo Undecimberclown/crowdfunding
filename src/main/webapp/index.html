@@ -59,10 +59,13 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <button class="nav-link btn" id="logInBtn" onclick="moveToLogIn()">로그인/회원가입</button>
+                    <button class="nav-link btn" id="logInBtn" onclick="moveToLogIn();">로그인/회원가입</button>
                 </li>
                 <li class="nav-item">
                     <button class="nav-link btn" id="projectBtn" onclick="moveToProjectMake()">프로젝트 시작하기</button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link btn" id="chargeBtn" onclick="location.href='/point/charge.jsp';" hidden>포인트 충전하기</button>
                 </li>
             </ul>
             <form class="d-flex" role="search">
@@ -150,10 +153,12 @@
                 if(data.message == 'true'){
                     $('#logInBtn').text('로그아웃');
                     $('#logInBtn').attr('onclick', 'logOut()');
+                    $('#chargeBtn').removeAttr('hidden');
                 }
                 else if(data.message == 'false'){
                     $('#logInBtn').text('로그인/회원가입');
                     $('#logInBtn').attr('onclick', 'moveToLogIn()');
+                    $('#chargeBtn').attr('type', 'hidden');
                 }
 
             }
@@ -206,6 +211,7 @@
                 }
             }
         });
+        location.reload();
     }
 
 
