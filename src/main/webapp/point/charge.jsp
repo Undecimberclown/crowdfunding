@@ -1,7 +1,10 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
     <title>포인트 충전</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -30,17 +33,10 @@
       .center{
 
         position: absolute;
-        top: 50%
-        left: 50%
-        transform: translate(-50%, -50%)
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
       }
-
-
-
-
-
-
-
 
     </style>
 </head>
@@ -94,21 +90,34 @@
 <body>
 <div class="container">
     <div class="center">
-        <a href="#" class="btn btn-outline-primary" style="block;width:100px;height:150px;margin:10px;"><b>1,000원
+        <a href="#" class="btn btn-outline-primary" style="block;width:100px;height:150px;margin:10px;" onclick="chargePoint1   ()"><b>1,000원
             충전</b></a>
         <a href="#" class="btn btn-outline-primary text-align-center"
-           style="block;width:100px;height:150px;margin:10px;"><b>5,000원 충전</b></a>
+           style="block;width:100px;height:150px;margin:10px;" onclick="chargePoint(5000)"><b>5,000원 충전</b></a>
         <a href="#" class="btn btn-outline-primary text-align-center"
-           style="block;width:100px;height:150px;margin:10px;"><b>10,000원 충전</b></a><br/>
+           style="block;width:100px;height:150px;margin:10px;" onclick="chargePoint(10000)"><b>10,000원 충전</b></a><br/>
         <a href="#" class="btn btn-outline-primary text-align-center"
-           style="block;width:100px;height:150px;margin:10px;"><b>50,000원 충전</b></a>
+           style="block;width:100px;height:150px;margin:10px;" onclick="chargePoint(50000)"><b>50,000원 충전</b></a>
         <a href="#" class="btn btn-outline-primary text-align-center"
-           style="block;width:100px;height:150px;margin:10px;"><b>100,000원 충전</b></a>
+           style="block;width:100px;height:150px;margin:10px;" onclick="chargePoint(100000)"><b>100,000원 충전</b></a>
         <a href="#" class="btn btn-outline-primary text-align-center"
            style="block;width:100px;height:150px;margin:10px;"><b>기타</b></a>
     </div>
 </div>
 
+<script>
+    function chargePoint1() {
+        var logIn = '<%=(String)session.getAttribute("logIn")%>';
+
+        if(!Array.isArray(logIn)){
+            document.location.href='/user/logIn.html';
+        } else {
+            logIn.setPoint = logIn.getPoint() + 1000;
+            document.location.href='/user/chargePoint';
+        }
+
+    }
+</script>
 </body>
 </body>
 </html>

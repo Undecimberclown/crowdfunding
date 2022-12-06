@@ -4,6 +4,7 @@ import com.sun.jdi.ObjectCollectedException;
 import com.team2.crowdfunding.model.PaymentDTO;
 import com.team2.crowdfunding.model.UserDTO;
 import com.team2.crowdfunding.service.UserService;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.mail.MailProperties;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -140,10 +141,11 @@ public class UserController {
 
         return resultMap;
     }
-    @GetMapping("ChargePoint")
-    public int ChargePoint(@RequestBody UserDTO userDTO){
+    @PostMapping("ChargePoint")
+    public void ChargePoint(@RequestBody UserDTO userDTO){
 
         userService.chargePoint(userDTO);
+
 
     }
 

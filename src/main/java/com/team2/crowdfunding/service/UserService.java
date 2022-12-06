@@ -27,4 +27,8 @@ public class UserService {
     public UserDTO selectByUsername(String username){
         return session.selectOne(NAMESPACE + ".validateUsername");
     }
+
+    public void chargePoint(UserDTO userDTO){
+        session.update(NAMESPACE + ".chargePoint", userDTO);
+    }
 }
