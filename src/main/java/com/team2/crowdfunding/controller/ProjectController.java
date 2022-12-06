@@ -38,16 +38,20 @@ import java.util.Map;
         return map;
     }
 
+    @ResponseBody
     @GetMapping("showOne/{id}")
-    public String showOne(HttpSession session, Model model, @PathVariable int id){
+    public Map<String, Object> showOne(HttpSession session, @PathVariable int id){
+        Map<String, Object> resultMap = new HashMap<>();
 
-        if (session.getAttribute("logIn") == null) {
-            return "redirect:/";
+        Map project = projectService.selectOne(id);
+        if(project != null){
+            resultMap.put("message", "success");
+            resultMap.put("data", project);
+        } else{
+            resultMap.put("message", "fail");
         }
-        model.addAttribute("project", projectService.selectOne(id));
-        model.addAttribute("logIn", (UserDTO) session.getAttribute("logIn"));
 
-        return "/board/printOne";
+        return resultMap;
     }
 
     @GetMapping("write")

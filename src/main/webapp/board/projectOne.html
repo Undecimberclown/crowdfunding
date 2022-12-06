@@ -64,7 +64,7 @@
 <header class="py-5 bg-light border-bottom mb-4">
     <div class="container">
         <div class="text-center my-5">
-            <h1 class="fw-bolder">${projectDTO.title}</h1>
+            <h1 class="fw-bolder" id="title">${projectDTO.title}</h1>
             <p class="lead mb-0">상품 태그등 부가 설명</p>
         </div>
     </div>
@@ -177,6 +177,10 @@
 
 <script>
     $(document).ready(function(){
+        let paramUrl = '?' + location.href.split('?')[1];
+        let params = new URLSearchParams(paramUrl);
+        let id = params.get('id');
+
         $.ajax({
             url: '/user/logInChk',
             type: 'post',
@@ -189,6 +193,22 @@
                 else if(data.message == 'false'){
                     $('#logInBtn').text('로그인/회원가입');
                     $('#logInBtn').attr('onclick', 'moveToLogIn()');
+                }
+
+            }
+        });
+
+        $.ajax({
+            url: '/project/showOne/1',
+            type: 'get',
+            dataType: 'json',
+            success: function(data, status, xhr){
+                if(data.message == 'success'){
+                    project = data.data;
+                    $('#title').text(project.title);
+                }
+                else if(data.message == 'fail'){
+                    console.log('프로젝트 불러오기에 실패했습니다.');
                 }
 
             }
