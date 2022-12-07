@@ -188,7 +188,6 @@
                 if(data.message == 'true'){
                     $('#logInBtn').text('로그아웃');
                     $('#logInBtn').attr('onclick', 'logOut()');
-                    location.href='/';
                 }
                 else if(data.message == 'false'){
                     $('#logInBtn').text('로그인/회원가입');
@@ -199,7 +198,7 @@
         });
 
         $.ajax({
-            url: '/project/showOne/1',
+            url: '/project/showOne/' + id,
             type: 'get',
             dataType: 'json',
             success: function(data, status, xhr){
