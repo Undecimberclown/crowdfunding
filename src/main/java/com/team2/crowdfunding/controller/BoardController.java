@@ -26,6 +26,8 @@ public class BoardController {
     //머스테치의 파일 위치는 기본적으로 src/main/resources/templates
     //https://nam-ki-bok.github.io/spring/Mustache/
 
+    //https://velog.io/@davidko/%EC%8A%A4%ED%94%84%EB%A7%81-Index.html-%EA%B0%90%EC%A7%80-%EB%B0%8F-static-%ED%8C%8C%EC%9D%BC-%EA%B2%BD%EB%A1%9C-%EC%84%A4%EC%A0%95
+
     @Autowired
     private BoardService boardService;
 
@@ -47,4 +49,11 @@ public class BoardController {
 
     // 글 작성 처리, 게시글 리스트
     //https://youtu.be/XytVcdgiVRk
+
+    @GetMapping("/board/view")
+    public String boardView(Model model, Integer id) {
+
+        model.addAttribute("Project", boardService.boardView(id));
+        return "board/boardview";
+    }
 }
