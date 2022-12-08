@@ -161,7 +161,7 @@ html, body {
             contentType: 'application/json; charset=UTF-8',
             success: function(data, status, xhr){
                 if(data.message == 'success'){
-                    document.location.href='/';
+                    document.location.href='javascript:history.back()';
                 }
                 else if(data.message == 'fail'){
                     Swal.fire({
