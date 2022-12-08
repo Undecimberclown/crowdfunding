@@ -28,7 +28,7 @@ public class BoardController {
 
     //https://velog.io/@davidko/%EC%8A%A4%ED%94%84%EB%A7%81-Index.html-%EA%B0%90%EC%A7%80-%EB%B0%8F-static-%ED%8C%8C%EC%9D%BC-%EA%B2%BD%EB%A1%9C-%EC%84%A4%EC%A0%95
 
-    
+
     @Autowired
     private BoardService boardService;
 
