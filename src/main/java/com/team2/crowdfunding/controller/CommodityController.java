@@ -2,12 +2,13 @@ package com.team2.crowdfunding.controller;
 
 import com.team2.crowdfunding.model.CommodityDTO;
 import com.team2.crowdfunding.service.CommodityService;
+import org.eclipse.jdt.internal.compiler.codegen.ObjectCache;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -15,6 +16,19 @@ import java.util.Map;
 public class CommodityController {
     @Autowired
     private CommodityService commodityService;
+
+    @ResponseBody
+    @GetMapping("selectAll/{projectId}")
+    public Map<String, Object> showAll(@PathVariable int projectId){
+        Map<String, Object> resultMap = new HashMap<>();
+
+        List data =  commodityService.selectAll(projectId);
+
+        resultMap.put("message", "success");
+        resultMap.put("data", data);
+
+        return resultMap;
+    }
 
     @PostMapping("insert")
     public Map<String, Object> insert(CommodityDTO commodityDTO){

@@ -142,6 +142,10 @@
                     </div>
                 </div>
             </div>
+
+            <!-- commodity 리스트 -->
+            <div id="commodity-list" class="mb-4"></div>
+
             <!-- Categories widget-->
             <div class="card mb-4">
                 <div class="card-header">Categories</div>
@@ -204,12 +208,35 @@
             success: function(data, status, xhr){
                 if(data.message == 'success'){
                     project = data.data;
+                    console.log('project.id =', project.title);
                     $('#title').text(project.title);
                 }
                 else if(data.message == 'fail'){
                     console.log('프로젝트 불러오기에 실패했습니다.');
                 }
 
+            }
+        });
+
+        $.ajax({
+            url: '/commodity/selectAll/' + id,
+            type: 'get',
+            dataType: 'json',
+            success: function(data, status, xhr){
+                if(data.message == 'success'){
+                    commodity = data.data;
+
+                    for(let i = 0; i < commodity.length; i++){
+                        console.log(commodity[i]);
+
+                        let string = "<div class='card mb-3'>";
+                        string += "<div class='card-body'>"
+                        string += "<h5 class='card-title'>" + commodity[i].title + "</h5>";
+                        string += "<p class='card-text'>" + commodity[i].content + "</p>";
+                        string += "<p class='card-text'>" + commodity[i].price + "원</p>";
+                        $('#commodity-list').append(string);
+                    }
+                }
             }
         });
     });
