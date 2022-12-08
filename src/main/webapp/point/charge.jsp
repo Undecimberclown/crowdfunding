@@ -11,6 +11,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"
             integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <Script>
         $(document).ready(function(){
 
@@ -106,14 +107,50 @@
 </div>
 
 <script>
-    function chargePoint1() {
-        var logIn = '<%=(String)session.getAttribute("logIn")%>';
 
-        if(!Array.isArray(logIn)){
-            document.location.href='/user/logIn.html';
-        } else {
-            logIn.setPoint = logIn.getPoint() + 1000;
-            document.location.href='/user/chargePoint';
+        $(document).ready(function(){
+                $.ajax({
+                    url: '/user/logInChk',
+                    type: 'post',
+                    success: function(data, status, xhr){
+                        if(data.message == 'true'){
+
+                        }
+                        else if(data.message == 'false'){
+                          Swal.fire({
+                            icon: 'error',
+                            title: '로그인이 필요합니다.',
+                            footer: '<a href="/user/register.html">계정이 없으신가요?</a>',
+
+                          }).then((result) => {
+                            document.location.href="/user/logIn.html"
+                          });
+                        }
+                    }
+
+                });
+        });
+
+    function chargePoint1() {
+        let logIn = '<%=session.getAttribute("logIn")%>';
+
+        logIn.setPoint = logIn.getPoint() + 1000;
+            $.ajax({
+                    url: "/user/chargePoint",
+                    type: "post",
+                    data: logIn,
+                    contentType: "application/json;charset=UTF-8",
+                    success: function(data, status, xhr ){
+                        if(data.message == 'success'){
+                            Swal.fire({
+                                icon: `success`,
+                                title: `충전성공!`,
+                            }).then((result) => {
+                                document.location.href='/';
+                            });
+                        }
+                    }
+            });
         }
 
     }

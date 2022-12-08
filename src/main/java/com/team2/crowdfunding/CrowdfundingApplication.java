@@ -6,7 +6,9 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.PropertySource;
-
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+//BaseTime 에 사용되는 jpa
+@EnableJpaAuditing
 @PropertySource("classpath:db.properties")
 @SpringBootApplication(exclude = SecurityAutoConfiguration.class)
 public class CrowdfundingApplication extends SpringBootServletInitializer {

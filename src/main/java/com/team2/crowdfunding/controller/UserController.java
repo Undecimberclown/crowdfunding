@@ -142,10 +142,14 @@ public class UserController {
         return resultMap;
     }
     @PostMapping("ChargePoint")
-    public void ChargePoint(@RequestBody UserDTO userDTO){
+    public Map<String, Object> ChargePoint(@RequestBody UserDTO userDTO){
+        Map<String, Object> resultMap = new HashMap<>();
 
         userService.chargePoint(userDTO);
 
+        resultMap.put("message", "success");
+
+        return resultMap;
 
     }
 
