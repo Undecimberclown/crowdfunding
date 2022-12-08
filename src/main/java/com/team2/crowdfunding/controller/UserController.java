@@ -141,13 +141,19 @@ public class UserController {
 
         return resultMap;
     }
-    @PostMapping("ChargePoint")
-    public Map<String, Object> ChargePoint(@RequestBody UserDTO userDTO){
+
+    @ResponseBody
+    @PostMapping("chargePoint")
+    public Map<String, Object> chargePoint(HttpSession session, @RequestBody UserDTO userDTO){
         Map<String, Object> resultMap = new HashMap<>();
 
-        userService.chargePoint(userDTO);
+        UserDTO logIn = (UserDTO) session.getAttribute("logIn");
+
+        logIn.setPoint(logIn.getPoint() + userDTO.getPoint());
 
         resultMap.put("message", "success");
+
+        userService.chargePoint(logIn);
 
         return resultMap;
 

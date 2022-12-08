@@ -1,17 +1,13 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
     <title>포인트 충전</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"
             integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
-            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <Script>
         $(document).ready(function(){
 
@@ -91,10 +87,10 @@
 <body>
 <div class="container">
     <div class="center">
-        <a href="#" class="btn btn-outline-primary" style="block;width:100px;height:150px;margin:10px;" onclick="chargePoint1   ()"><b>1,000원
+        <a href="#" class="btn btn-outline-primary" style="block;width:100px;height:150px;margin:10px;" onclick="chargePoint1()"><b>1,000원
             충전</b></a>
         <a href="#" class="btn btn-outline-primary text-align-center"
-           style="block;width:100px;height:150px;margin:10px;" onclick="chargePoint(5000)"><b>5,000원 충전</b></a>
+           style="block;width:100px;height:150px;margin:10px;" onclick="chargePoint(5000)" id="5000"><b>5,000원 충전</b></a>
         <a href="#" class="btn btn-outline-primary text-align-center"
            style="block;width:100px;height:150px;margin:10px;" onclick="chargePoint(10000)"><b>10,000원 충전</b></a><br/>
         <a href="#" class="btn btn-outline-primary text-align-center"
@@ -113,10 +109,8 @@
                     url: '/user/logInChk',
                     type: 'post',
                     success: function(data, status, xhr){
-                        if(data.message == 'true'){
 
-                        }
-                        else if(data.message == 'false'){
+                        if(data.message == 'false'){
                           Swal.fire({
                             icon: 'error',
                             title: '로그인이 필요합니다.',
@@ -131,30 +125,40 @@
                 });
         });
 
-    function chargePoint1() {
-        let logIn = '<%=session.getAttribute("logIn")%>';
+    function chargePoint(point) {
 
-        logIn.setPoint = logIn.getPoint() + 1000;
+        let a = document.getElementById(point);
+        console.log(a.id);
+        console.log(point);
+
+        let pointDate = JSON.stringify({
+            "point": a.id
+        });
+
+        console.log(pointDate);
+
             $.ajax({
-                    url: "/user/chargePoint",
-                    type: "post",
-                    data: logIn,
-                    contentType: "application/json;charset=UTF-8",
+                    url: '/user/chargePoint',
+                    type: 'post',
+                    data: pointDate,
+                    dataType: 'json',
+                    contentType: 'application/json;charset=UTF-8',
                     success: function(data, status, xhr ){
                         if(data.message == 'success'){
                             Swal.fire({
-                                icon: `success`,
-                                title: `충전성공!`,
-                            }).then((result) => {
-                                document.location.href='/';
+                                icon: 'success',
+                                title: '충전성공!',
                             });
                         }
                     }
             });
         }
 
-    }
+
 </script>
 </body>
 </body>
 </html>
+<!-- 출처
+// https://codezone.tistory.com/entry/%EB%B6%80%ED%8A%B8%EC%8A%A4%ED%8A%B8%EB%9E%A9Bootstrap%EC%9D%84-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EB%A1%9C%EA%B7%B8%EC%9D%B8-%EC%9B%B9%ED%8E%98%EC%9D%B4%EC%A7%80-%ED%99%94%EB%A9%B4-%EA%B5%AC%ED%98%84
+-->

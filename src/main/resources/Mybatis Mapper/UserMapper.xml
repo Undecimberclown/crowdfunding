@@ -21,7 +21,7 @@
         `nickname` = #{nickname}
         WHERE `id` = #{id}
     </update>
-    <update id="charge" parameterType="userDTO">
+    <update id="chargePoint" parameterType="userDTO">
         UPDATE `user` SET
         `point` = #{point}
         WHERE `id` = #{id}
