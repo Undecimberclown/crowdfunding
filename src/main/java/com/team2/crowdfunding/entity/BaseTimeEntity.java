@@ -5,8 +5,10 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import javax.persistence.Column;
 import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.Table;
 import java.time.LocalDateTime;
 
 @Getter
@@ -14,10 +16,12 @@ import java.time.LocalDateTime;
 @EntityListeners(AuditingEntityListener.class) // 2
 public class BaseTimeEntity {
 
-    @CreatedDate // 3
+    @CreatedDate// 3
+    @Column(name = "localDateTime")
     private LocalDateTime localDateTime;
 
     @LastModifiedDate // 4
+    @Column(name = "modifiedDate")
     private LocalDateTime modifiedDate;
 
 //1 : 모든 JPA 엔티티들이 BaseTimeEntity를 상속 받을 경우 필드도 컬럼으로 인식하도록 한다.

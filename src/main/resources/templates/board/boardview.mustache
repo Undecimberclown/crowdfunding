@@ -113,7 +113,13 @@
                 <div class="card-body">
                     0000000원 000% 달성 <br>
                     남은 시간 00월 00일  <br>
-                    후원자 000명  <br>
+                    목표 금액
+                    {{#Project.target_money}}{{Project.target_money}}{{/Project.target_money}}
+                    {{^Project.target_money}}sub_content 입력하지 않음{{/Project.target_money}}<br>
+                    후원자
+                    {{#Project.number_of_paid_users}}{{Project.number_of_paid_users}}{{/Project.number_of_paid_users}}
+                    {{^Project.number_of_paid_users}}number_of_paid_user 입력하지 않음{{/Project.number_of_paid_users}}
+                    명 <br>
                     <button type="button" class="btn btn-success">펀딩하기</button>
                 </div>
             </div>

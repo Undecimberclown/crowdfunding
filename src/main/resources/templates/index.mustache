@@ -96,9 +96,11 @@
                 <div class="card-body">
                    <!-- <h5  onclick="moveToProject()" class="card-title">{{title}}</h5>-->
                     <a href="/board/view?id={{id}}" class="card-title">{{title}}</a>
-                    <p class="card-text">부가 설명</p>
+                    <p class="card-text">
+                        {{#sub_content}}{{sub_content}}{{/sub_content}}
+                        {{^sub_content}}sub_content 입력하지 않음{{/sub_content}}</p>
                     <p class="card-text bg-light" style="transform: rotate(0);">
-                        {{content}}
+                        모인 금액
                     </p>
                 </div>
             </div>

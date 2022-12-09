@@ -3,14 +3,14 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ProjectMapper">
         <select id="selectAll" resultType="hashMap">
-        SELECT p.`id`, p.`title`, p.`content`, u.`nickname`, p.`img_url`, p.`start_date`, p.`end_date`
+        SELECT p.`id`, p.`title`, p.`content`, u.`nickname`
         FROM `project` AS p
         INNER JOIN `user` AS u
         ON p.`writer_id` = u.`id`
         ORDER BY p.`id` DESC
     </select>
     <select id="selectOne" parameterType="int" resultType="hashMap">
-        SELECT p.`id`, p.`title`, p.`content`, u.`nickname`, p.`img_url`, p.`start_date`, p.`end_date`
+        SELECT p.`id`, p.`title`, p.`content`, u.`nickname`
         FROM `project` AS p
         INNER JOIN `user` AS u
         ON p.`writer_id` = u.`id`
@@ -21,14 +21,14 @@
     </select>
     <insert id="insert" parameterType="projectDTO" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO `project`(`title`, `img_url`, `content`, `writer_id`, `start_date`, `end_date`)
-        VALUES(#{title}, #{img_url}, #{content}, #{writer_id}, NOW(), #{end_date})
+        VALUES(#{title},  #{content}, #{writer_id}, NOW(), )
     </insert>
     <update id="update" parameterType="projectDTO">
         UPDATE `project` SET
         `title` = #{title}
-        `img_url` = #{img_url}
+
         `content` = #{content}
-        `start_date` = #{start_date}
+
     </update>
     <delete id="delete" parameterType="int">
         DELETE FROM `project`
