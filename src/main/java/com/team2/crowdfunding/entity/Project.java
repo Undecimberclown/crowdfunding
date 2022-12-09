@@ -17,12 +17,13 @@ public class Project extends BaseTimeEntity{
 
     private Integer writer_id;
 
-    private String img_url;
+    private String filename;
+
+    private String filepath;
 
     private String title;
 
     private String content;
-
 
 
 }
