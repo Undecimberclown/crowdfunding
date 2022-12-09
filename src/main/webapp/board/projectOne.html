@@ -50,6 +50,9 @@
                 <li class="nav-item">
                     <button class="nav-link btn" onclick="moveToShow()">0000</button>
                 </li>
+                <li class="nav-item">
+                    <button class="nav-link btn" id="chargeBtn" onclick="location.href='/point/charge.html';" hidden>포인트 충전하기</button>
+                </li>
             </ul>
             <form class="d-flex" role="search">
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
@@ -192,10 +195,12 @@
                 if(data.message == 'true'){
                     $('#logInBtn').text('로그아웃');
                     $('#logInBtn').attr('onclick', 'logOut()');
+                     $('#chargeBtn').removeAttr('hidden');
                 }
                 else if(data.message == 'false'){
                     $('#logInBtn').text('로그인/회원가입');
                     $('#logInBtn').attr('onclick', 'moveToLogIn()');
+                     $('#chargeBtn').attr('hidden');
                 }
 
             }
