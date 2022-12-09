@@ -1,8 +1,10 @@
 package com.team2.crowdfunding.controller;
 
 import com.sun.jdi.ObjectCollectedException;
+import com.team2.crowdfunding.model.CommodityDTO;
 import com.team2.crowdfunding.model.PaymentDTO;
 import com.team2.crowdfunding.model.UserDTO;
+import com.team2.crowdfunding.service.CommodityService;
 import com.team2.crowdfunding.service.UserService;
 import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -25,6 +28,9 @@ public class UserController {
 
     @Autowired
     PaymentController paymentController;
+
+    @Autowired
+    CommodityService commodityService;
 
     @Autowired
     public PasswordEncoder passwordEncoder() {
@@ -153,9 +159,35 @@ public class UserController {
 
         resultMap.put("message", "success");
 
-        userService.chargePoint(logIn);
+        userService.updatePoint(logIn);
 
         return resultMap;
+
+    }
+    @ResponseBody
+    @PostMapping("usePoint")
+    public Map<String, Object> usePoint(HttpSession session, @RequestBody UserDTO userDTO, @RequestBody int id){
+        Map<String, Object> resultMap = new HashMap<>();
+
+        UserDTO login = (UserDTO) session.getAttribute("logIn");
+
+        CommodityDTO commodityDTO = commodityService.selectOne(id);
+
+        int point = login.getPoint() - commodityDTO.getPrice();
+
+        if(point < 0){
+            resultMap.put("message", "failed");
+        } else {
+            login.setPoint(point);
+            userService.updatePoint(login);
+            resultMap.put("message", "success");
+        }
+
+        return resultMap;
+
+
+
+
 
     }
 
