@@ -10,7 +10,7 @@
         ORDER BY p.`id` DESC
     </select>
     <select id="selectOne" parameterType="int" resultType="hashMap">
-        SELECT p.`id`, p.`title`, p.`content`, u.`nickname`
+        SELECT p.`id`, p.`title`, p.`content`, u.`nickname`, p.`target_money`
         FROM `project` AS p
         INNER JOIN `user` AS u
         ON p.`writer_id` = u.`id`

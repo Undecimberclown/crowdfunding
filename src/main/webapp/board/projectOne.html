@@ -117,9 +117,9 @@
             <div class="card mb-4">
                 <div class="card-header">모인 금액(상품 정보)</div>
                 <div class="card-body">
-                    0000000원 000% 달성 <br>
+                    <span id="fundingPoint">0000000원</span> 000% 달성 <br>
                     남은 시간 00월 00일  <br>
-                    후원자 000명  <br>
+                    후원자 <span id="fundingUser">000명</span>  <br>
                     <button type="button" class="btn btn-success">펀딩하기</button>
                 </div>
             </div>
@@ -215,6 +215,7 @@
                     project = data.data;
                     console.log('project.id =', project.title);
                     $('#title').text(project.title);
+                    $('#fundingPoint').text(project.target_money + '원');
                 }
                 else if(data.message == 'fail'){
                     console.log('프로젝트 불러오기에 실패했습니다.');
@@ -234,7 +235,7 @@
                     for(let i = 0; i < commodity.length; i++){
                         console.log(commodity[i]);
 
-                        let string = "<div class='card mb-3'>";
+                        let string = "<div class='card mb-3' onclick='selectCommodity(" + commodity[i].id + ")'>";
                         string += "<div class='card-body'>"
                         string += "<h5 class='card-title'>" + commodity[i].title + "</h5>";
                         string += "<p class='card-text'>" + commodity[i].content + "</p>";
@@ -249,8 +250,9 @@
     function moveToLogIn(){
         document.location.href='/user/logIn.html';
     }
-    function moveToProject(){
-        document.location.href='/board/projectOne.html';
+
+    function selectCommodity(id){
+
     }
 </script>
 </body>
