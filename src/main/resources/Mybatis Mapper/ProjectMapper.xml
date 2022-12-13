@@ -34,4 +34,8 @@
         DELETE FROM `project`
         WHERE `id` = #{id}
     </delete>
+    <select id="dateChk" parameterType="int" resultType="projectDTO">
+        SELECT `funding_start_date`, `funding_end_date` FROM `project`
+        WHERE `id` = #{id}
+    </select>
 </mapper>

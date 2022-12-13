@@ -40,4 +40,5 @@ public class ProjectService {
     public void update(ProjectDTO projectDTO){
         session.update(NAMESPACE + ".update", projectDTO);
     }
+    public ProjectDTO dateChk(int id) { return session.selectOne(NAMESPACE + ".dateChk", id);}
 }

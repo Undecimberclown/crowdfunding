@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -80,5 +81,31 @@ import java.util.Map;
     public String delete(@PathVariable int id){
         projectService.delete(id);
         return "redirect:/board/showAll/1";
+    }@ResponseBody
+    @PostMapping("dateChk")
+    public Map<String, Object> dateChk(@RequestBody ProjectDTO projectDTO){
+        Map<String, Object> resultMap = new HashMap<>();
+
+        if(projectDTO.getFunding_start_date() == projectDTO.getFunding_end_date()){
+            resultMap.put("message", "end");
+        } else {
+            SimpleDateFormat month = new SimpleDateFormat("MM");
+            SimpleDateFormat days = new SimpleDateFormat("dd");
+            SimpleDateFormat hours = new SimpleDateFormat("HH");
+            SimpleDateFormat min = new SimpleDateFormat("mm");
+            SimpleDateFormat sec = new SimpleDateFormat("ss");
+
+            int liveMonth = Integer.parseInt(month.format(projectDTO.getFunding_end_date())) - Integer.parseInt(month.format(projectDTO.getFunding_start_date()));
+            int liveDays = Integer.parseInt(days.format(projectDTO.getFunding_end_date())) - Integer.parseInt(days.format(projectDTO.getFunding_start_date()));
+            int liveHours = Integer.parseInt(hours.format(projectDTO.getFunding_end_date())) - Integer.parseInt(hours.format(projectDTO.getFunding_start_date()));
+            int liveMin = Integer.parseInt(min.format(projectDTO.getFunding_end_date())) - Integer.parseInt(min.format(projectDTO.getFunding_start_date()));
+            int liveSec = Integer.parseInt(sec.format(projectDTO.getFunding_end_date())) - Integer.parseInt(sec.format(projectDTO.getFunding_start_date()));
+
+            resultMap.put("message", liveMonth + "월" + liveDays + "일" + liveHours + "시" + liveMin + "분" + liveSec + "초");
+
+        }
+
+        return resultMap;
     }
+
 }
