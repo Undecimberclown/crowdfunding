@@ -5,9 +5,65 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>게시물 작성 폼</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"
+            integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <!-- CKEditor CDN import -->
+    <script src="https://cdn.ckeditor.com/4.20.0/standard/ckeditor.js"></script>
+
+    <script>
+        $(document).ready(function(){
+            $('head').load('../importer.html');
+        });
+    </script>
 </head>
 <body>
-    <div class="layout">
+<nav class="navbar navbar-expand-lg bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/"><b>크라우드 펀딩</b></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Link</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                       aria-expanded="false">
+                        Dropdown
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Action</a></li>
+                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link btn" id="projectBtn" onclick="moveToProjectMake()">프로젝트 시작하기</button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link btn" id="chargeBtn" onclick="location.href='/point/charge.html';" hidden>포인트 충전하기</button>
+                </li>
+            </ul>
+            <form class="d-flex" role="search">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+
+        </div>
+    </div>
+</nav>
+
+    <div class="layout container">
         <form action="/board/writepro" method="post"
               enctype="multipart/form-data">
             제목
@@ -19,13 +75,38 @@
 
 
             쓰는 사람
-            <input name="writer_id" type="text">
+            <input name="writer_id" id="writer" type="text">
         <!--<input name="content" type="text"> -->
             내용
-            <textarea name="content"></textarea>
+            <textarea name="content" id="content"></textarea>
 
         <button type="submit">작성</button>
         </form>
     </div>
+    <script>
+        CKEDITOR.replace("content");
+
+        $(document).ready(function(){
+            $.ajax({
+                url: '/user/logInChk',
+                type: 'post',
+                success: function(data, status, xhr){
+                    if(data.message == "true"){
+                        let logIn = data.logIn;
+                        $('#writer').text(logIn.nickname);
+                    }
+                    else if(data.message == 'false'){
+                        Swal.fire({
+                            icon: 'error',
+                            title: '로그인이 필요합니다.',
+                            footer: '<a href="/user/register.html" style="text-decoration-line: none;">계정이 없으신가요?</a>',
+                        }).then((result) => {
+                            document.location.href='/user/logIn.html';
+                        });
+                    }
+                }
+            });
+        });
+    </script>
 </body>
 </html>
