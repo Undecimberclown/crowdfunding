@@ -237,11 +237,14 @@
                     for(let i = 0; i < commodity.length; i++){
                         console.log(commodity[i]);
 
-                        let string = "<div class='card mb-3'>";
+                        let string = "<div class='card mb-3' onclick='moveToCommodity()'>";
                         string += "<div class='card-body'>"
                         string += "<h5 class='card-title'>" + commodity[i].title + "</h5>";
                         string += "<p class='card-text'>" + commodity[i].content + "</p>";
                         string += "<p class='card-text'>" + commodity[i].price + "원</p>";
+                        string += "<p class='text-success'>";
+                        string += <strong>총 수량 : " + commodity[i].order_quantity + "</strong> / ";
+                        string += "<em>남은 수량 : " + commodity[i].quantity_left + "</em>";
                         $('#commodity-list').append(string);
                     }
                 }
@@ -254,6 +257,9 @@
     }
     function moveToProject(){
         document.location.href='/board/projectOne.html';
+    }
+    function moveToCommodity(){
+        document.location.href='/point/test.html';
     }
 </script>
 </body>
