@@ -119,6 +119,7 @@ public class UserController {
         Map<String, Object> resultMap = new HashMap<>();
         if (logIn != null) {
             resultMap.put("message", "true");
+            resultMap.put("logIn", logIn);
         } else {
             resultMap.put("message", "false");
         }
