@@ -15,8 +15,7 @@
     </script>
 
     <!-- CKEditor CDN import -->
-    <script src="//cdn.ckeditor.com/4.20.1/standard/ckeditor.js"></script>
-    <script src="/js/ckeditor/ckeditor.js"></script>
+    <script src="https://cdn.ckeditor.com/4.20.1/standard/ckeditor.js"></script>
     <!-- Sweetalert CDN import -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
@@ -98,12 +97,18 @@
 
             <!--<input name="content" type="text"> -->
             내용
-            <textarea name="content" id="content"></textarea>
+            <textarea name="editor" id="editor"></textarea>
 
-            <button type="submit">작성</button>
+            <div class="row">
+                <div class="col text-end">
+                    <button type="submit" class="btn btn-success mt-2">작성</button>
+                </div>
+            </div>
         </form>
     </div>
     <script>
+        CKEDITOR.replace('editor');
+
         $(document).ready(function(){
             $.ajax({
                 url: '/user/logInChk',
@@ -126,7 +131,7 @@
             });
         });
 
-        CKEDITOR.replace("content");
+
     </script>
 </body>
 </html>
