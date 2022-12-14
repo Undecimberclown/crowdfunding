@@ -8,7 +8,10 @@ import com.team2.crowdfunding.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +25,28 @@ public class BoardController {
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+    @GetMapping("/test/login")
+    public @ResponseBody String testLogin(
+            Authentication authentication,
+            @AuthenticationPrincipal PrincipalDetails userDetails){
+        System.out.println("/test/login ====================");
+        PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
+        System.out.println("authentication :" + principalDetails.getUser());
 
+        System.out.println("userDetails :" + userDetails.getUser());
+        return "세션 정보 확인하기";
+    }
+
+    @GetMapping("/test/oauth/login")
+    public @ResponseBody String testOAuthLogin(
+            Authentication authentication,
+            @AuthenticationPrincipal OAuth2User oAuth){
+        System.out.println("/test/oauth/login ====================");
+        OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
+        System.out.println("authentication :" + oAuth2User.getAttributes());
+
+        return "세션 정보 확인하기";
+    }
 
     @GetMapping({"","/"})
     public String hello(Model model) {
@@ -68,6 +92,11 @@ public class BoardController {
     @GetMapping("/managerpage")
     public @ResponseBody String manager(){
         return "매니저와 관리자만 들어갈 수 있는 페이지";
+    }
+
+    @GetMapping("/user")
+    public @ResponseBody String user(@AuthenticationPrincipal PrincipalDetails principalDetails){
+        return "user";
     }
 
     @Autowired
