@@ -10,8 +10,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/payLog/")
@@ -39,6 +43,16 @@ public class PayLogController {
         payLogDTO.setPoint(0);
         payLogService.insert(payLogDTO);
 
+    }
+    @ResponseBody
+    @RequestMapping("userAll")
+    public Map<String, Object> userAll(){
+        Map<String, Object> map = new HashMap<>();
+        List list = payLogService.userAll();
+        map.put("message", "success");
+        map.put("data", list);
+
+        return map;
     }
 
 
