@@ -3,26 +3,14 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="crowdfunding.PaymentMapper">
     <select id="selectOne" parameterType="int" resultType="hashMap">
-        SELECT p.`point`, u.`nickname` FROM `payment` AS p
+        SELECT p.`point`, u.`nickname` FROM `payLog` AS p
         INNER JOIN `user` AS u
         on p.`user_id` = u.`id`
         WHERE p.`user_id` = #{user_id}
     </select>
 
     <insert id="insert" parameterType="paymentDTO">
-        INSERT INTO `payment` (`user_id`, `commodity_id`, `point`)
+        INSERT INTO `payLog` (`user_id`, `commodity_id`, `point`)
         VALUES (#{user_id}, #{commodity_id}, #{point})
     </insert>
-
-    <update id="fillPoint" parameterType="paymentDTO">
-        UPDATE `payment` SET
-        `point` = `point` + #{sumPoint}
-        WHERE `user_id` = #{user_id}
-    </update>
-
-    <update id="payPoint" parameterType="paymentDTO">
-        UPDATE `payment` SET
-        `point` = `point - #{minusPoint}
-        WHERE `user_id` = #{user_id}
-    </update>
 </mapper>
