@@ -82,11 +82,19 @@
 
             </div>
 
-            이미지
-            <input name="file" type="file">
+            <div class="row">
+                <div class="col">
+                    <label for="image">대표 이미지</label>
+                    <input class="form-control" name="file" id="image" type="file">
+                </div>
+            </div>
 
-
-
+            <div class="row">
+                <div class="col">
+                    <label for="target-money">목표 금액</label>
+                    <input class="form-control" name="target-money" id="target-money">
+                </div>
+            </div>
 
             <!--<input name="content" type="text"> -->
             내용
@@ -105,15 +113,15 @@
                         let logIn = data.logIn;
                         $('#writer').text(logIn.nickname);
                     }
-                    else if(data.message == 'false'){
-                        Swal.fire({
-                            icon: 'error',
-                            title: '로그인이 필요합니다.',
-                            footer: '<a href="/user/register.html" style="text-decoration-line: none;">계정이 없으신가요?</a>',
-                        }).then((result) => {
-                            document.location.href='/user/logIn.html';
-                        });
-                    }
+<!--                    else if(data.message == 'false'){-->
+<!--                        Swal.fire({-->
+<!--                            icon: 'error',-->
+<!--                            title: '로그인이 필요합니다.',-->
+<!--                            footer: '<a href="/user/register.html" style="text-decoration-line: none;">계정이 없으신가요?</a>',-->
+<!--                        }).then((result) => {-->
+<!--                            document.location.href='/user/logIn.html';-->
+<!--                        });-->
+<!--                    }-->
                 }
             });
         });
