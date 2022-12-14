@@ -2,8 +2,11 @@ package com.team2.crowdfunding.controller;
 
 
 import com.team2.crowdfunding.entity.Project;
+import com.team2.crowdfunding.entity.User;
+import com.team2.crowdfunding.repository.UserRepository;
 import com.team2.crowdfunding.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +17,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 public class BoardController {
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
 
     @RequestMapping("/")
     public String hello(Model model) {
@@ -26,6 +36,39 @@ public class BoardController {
     }
     //머스테치의 파일 위치는 기본적으로 src/main/resources/templates
     //https://nam-ki-bok.github.io/spring/Mustache/
+
+
+    @GetMapping("/login")
+    public String login(){
+        return "board/login";
+    }
+
+    @GetMapping("/register")
+    public String register(){
+        return "board/register";
+    }
+
+    @PostMapping("/registerpro")
+    public String registerPro(User user){
+        System.out.println(user);
+        user.setRole("ROLE_USER");
+        String rawPassword = user.getPassword();
+        String encPassword = bCryptPasswordEncoder.encode(rawPassword);
+        user.setPassword(encPassword);
+        userRepository.save(user);
+        return "redirect:/login";
+    }
+
+    @GetMapping("/manager")
+    public String manger(){
+        return "manager";
+    }
+
+    @GetMapping("/admin")
+    public String admin(){
+
+        return "admin";
+    }
 
     @Autowired
     private BoardService boardService;

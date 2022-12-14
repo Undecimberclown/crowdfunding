@@ -10,7 +10,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 //BaseTime 에 사용되는 jpa
 @EnableJpaAuditing
 @PropertySource("classpath:db.properties")
-@SpringBootApplication(exclude = SecurityAutoConfiguration.class)
+@SpringBootApplication
 public class CrowdfundingApplication extends SpringBootServletInitializer {
 
 	@Override
