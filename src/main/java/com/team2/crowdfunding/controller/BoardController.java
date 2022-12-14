@@ -6,13 +6,12 @@ import com.team2.crowdfunding.entity.User;
 import com.team2.crowdfunding.repository.UserRepository;
 import com.team2.crowdfunding.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 @Controller
@@ -25,7 +24,7 @@ public class BoardController {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 
-    @RequestMapping("/")
+    @GetMapping({"","/"})
     public String hello(Model model) {
 
         model.addAttribute("list", boardService.boardList());
@@ -38,9 +37,9 @@ public class BoardController {
     //https://nam-ki-bok.github.io/spring/Mustache/
 
 
-    @GetMapping("/login")
-    public String login(){
-        return "board/login";
+    @GetMapping("/loginPage")
+    public String loginPage(){
+        return "board/loginPage";
     }
 
     @GetMapping("/register")
@@ -59,15 +58,16 @@ public class BoardController {
         return "redirect:/login";
     }
 
-    @GetMapping("/manager")
-    public String manger(){
-        return "manager";
+    @Secured("ROLE_ADMIN")
+    @GetMapping("/adminpage")
+    public @ResponseBody String admin(){
+        return "관리자만 들어갈 수 있는 페이지";
     }
 
-    @GetMapping("/admin")
-    public String admin(){
-
-        return "admin";
+    @PreAuthorize("hasRole('ROLE_MANAGER') or hasRole('ROLE_ADMIN')")
+    @GetMapping("/managerpage")
+    public @ResponseBody String manager(){
+        return "매니저와 관리자만 들어갈 수 있는 페이지";
     }
 
     @Autowired

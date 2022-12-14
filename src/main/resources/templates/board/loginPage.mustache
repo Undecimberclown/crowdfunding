@@ -7,10 +7,11 @@
     <title>임시 로그인페이지</title>
 </head>
 <body>
-<form>
+<form action="/login" method="post">
 <input type="text" name="username"/>
-<input type="text" name="password"/>
-
+<input type="password" name="password"/>
+    <button type="submit">로그인</button>
+    <a href="/oauth2/authorization/google">구글 로그인</a>
     <a href="/register">회원가입</a>
 </form>
 </body>

@@ -17,11 +17,13 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+
     private String nickname;
     private String username;
     private String password;
 //    private String email;
     private String role; // ROLE_USER, ROLE_ADMIN
+
 
 
 //    @CreationTimestamp // INSERT 쿼리 시 현재 시간으로 생성
