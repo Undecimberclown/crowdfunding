@@ -8,10 +8,10 @@
 </head>
 <body>
     <div class="layout">
-        <form action="/board/writepro" method="post">
+        <form action="/board/writepro" method="post" enctype="multipart/form-data">
         <input name="title" type="text">
-            <input name="img_url" type="text">
             <input name="writer_id" type="text">
+            <input name="file" type="file">
         <!--<input name="content" type="text"> -->
             <textarea name="content"></textarea>
 

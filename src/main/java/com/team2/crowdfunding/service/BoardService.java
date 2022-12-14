@@ -20,7 +20,7 @@ public class BoardService {
     //글 작성
     public void write(Project project, MultipartFile file) throws Exception{
 
-        String projectPath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\img";
+        String projectPath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\files";
 
         UUID uuid = UUID.randomUUID();
 

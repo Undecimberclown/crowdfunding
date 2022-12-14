@@ -5,6 +5,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Repository
@@ -23,11 +25,6 @@ public class PayLogService {
         session.insert(NAMESPACE + ".insert", payLogDTO);
     }
 
-    public void fillPoint(PayLogDTO map){
-        session.update(NAMESPACE + "fillPoint", map);
-    }
+    public List<HashMap> userAll(){return  session.selectList(NAMESPACE + ".userAll");}
 
-    public void payPoint(PayLogDTO map){
-        session.update(NAMESPACE + ".payPoint", map);
-    }
 }
