@@ -33,6 +33,8 @@ public class SecurityConfig {
                 .antMatchers("/user/**").authenticated() // 인증만 되면 들어갈 수 있는 주소
                 .antMatchers("/manager/**").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_MANAGER')")
                 .antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
+                // 정적 리소스 허용
+                .antMatchers("/js/**", "/files/**").permitAll()
                 .anyRequest().permitAll()
                 .and()
                 .formLogin()
