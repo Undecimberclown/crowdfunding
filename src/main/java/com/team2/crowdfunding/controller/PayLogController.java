@@ -46,9 +46,9 @@ public class PayLogController {
     }
     @ResponseBody
     @RequestMapping("userAll")
-    public Map<String, Object> userAll(){
+    public Map<String, Object> userAll(int user_id){
         Map<String, Object> map = new HashMap<>();
-        List list = payLogService.userAll();
+        List list = payLogService.userAll(user_id);
         map.put("message", "success");
         map.put("data", list);
 

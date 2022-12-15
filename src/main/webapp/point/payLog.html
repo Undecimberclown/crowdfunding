@@ -9,10 +9,6 @@
             $(document).ready(function(){
                 $('head').load('/importer.html');
             });
-
-
-
-
     </Script>
 
 </head>
@@ -20,11 +16,25 @@
 <nav class="navbar navbar-expand-lg bg-light">
     <div class="container-fluid">
         <a class="navbar-brand " href="/" id="navbarRightUl" style="margin-left: 40px;"><h3><b>크라우드 펀딩</b></h3></a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <table id="loginUi">
+
+
+        <li class="nav-item dropdown justify-content-end" id="navbarLeftUl"
+            style="list-style-type:none; margin-right:100px">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+               aria-expanded="false" id="choName"></a>
+            <ul class="dropdown-menu">
+                <li class="dropdown">
+                    <a class="dropdown-item" style="text-align-last:center;" href='../logInPage'>로그인</a></li>
+                <li>
+                    <a class="dropdown-item" style="text-align-last:center;" href='../register'>회원가입</a>
+                </li>
+                <li>
+                    <hr class="dropdown-divider">
+                </li>
+                <li><a class="dropdown-item" style="text-align-last:center;" href="/point/charge.html">포인트 충전하기</a></li>
+            </ul>
+
+            <table id="loginUi">
 
             </table>
         </li>
@@ -34,7 +44,7 @@
 </nav>
 <div class="container vh-100 w-75">
     <div class="container mt-5">
-        <table class="table table-hover" id="board-table">
+        <table class="table table-hover" id="payLog-table">
             <tr>
                 <th>번호</th>
                 <th>아이템 명</th>
@@ -50,32 +60,14 @@
             url: '/user/logInChk',
             type: 'post',
             success: function(data, status, xhr){
+            console.log(data);
                 if(data.message == 'true'){
-                    let string +=  '<li class="nav-item dropdown justify-content-end" id="navbarLeftUl" style="list-style-type:none; margin-right:100px">'
-                    string += '<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"'
-                    string += 'aria-expanded="false">'
-                    string +=  '000님'
-                    string += '</a>'
+                    let logIn = data.data
+                    $('#choName').text(logIn.nickname)
 
-                    string += '<ul class="dropdown-menu">'
-                    string += '<li class="dropdown">'
-                    string += '<a class="dropdown-item" style="text-align-last:center;" href='logInPage'>로그인</a>'
-                    string += '</li>'
-                    string += '<li>'
-                    string += '<a class="dropdown-item" style="text-align-last:center;" href='../register'>회원가입</a>'
-                    string += '</li>'
-                    string += '<li>'
-                    string += '<hr class="dropdown-divider">'
-                    string += '</li>'
-                    string += '<li><a class="dropdown-item" style="text-align-last:center;" href="/point/charge.html">포인트 충전하기</a></li>'
-                    string += '</ul>'
-                    string += '}'
-                    $('#loginUi').append(string)
+                }
                 else if(data.message == 'false'){
-                    let string = '<li class="nav-item">'
-                    string = '<button class="nav-link btn" id="logInBtn" onclick="moveToLogIn();">로그인/회원가입</button>'
-                    string = '</li>'
-                    $('#loginUi').append(string)
+                    $('#choName').text('로그인/회원가입')
                 }
 
             }
@@ -87,26 +79,24 @@
             success: function(data, status, xhr){
             if(data.message == 'success'){
             let payLog = data.data
-
-            for(let i = 0; i < payLog.length; i++){
-            let string = "<tr onclick='location.href=''>";
-            string += "<td>" + payLog[i].id + "</td>";
-            string += "<td>" + payLog[i].title + "</td>";
-            string += "<td>" + payLog[i].point + "</td>";
-            string += "<td>" + new Date(payLog[i].entry_date).toLocalString() + "</td>";
-            $('#payLog-table').append(string)
+            }
+            if(data.isEmpty()){
+                let string = "<b>구매내역이 존재하지 않습니다.</b>"
+            } else{
+                for(let i = 0; i <= payLog.length; i++){
+                let string = "<tr onclick='location.href=''>";
+                string += "<td>" + payLog[i].id + "</td>";
+                string += "<td>" + payLog[i].title + "</td>";
+                string += "<td>" + payLog[i].point + "</td>";
+                string += "<td>" + new Date(payLog[i].entry_date).toLocalString() + "</td>";
+                $('#payLog-table').append(string)
+                }
             }
         }
 
-    }
+    });
 
   });
-
-});
-
-
-
-
 
 </script>
 </body>

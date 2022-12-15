@@ -7,15 +7,15 @@
         INNER JOIN `user` AS u
         INNER JOIN `commodity` AS c
         on p.`user_id` = u.`id`
-        on p.`commodity = c.`id`
+        on p.`commodity_id` = c.`id`
         WHERE p.`user_id` = #{user_id}
     </select>
     <select id="commodityAll" parameterType="int" resultType="hashMap">
-        SELECT p.`point`, u.`nickname`, c.'title` FROM `payLog` AS p
+        SELECT p.`point`, u.`title`, c.'title` FROM `payLog` AS p
         INNER JOIN `user` AS u
         INNER JOIN `commodity` AS c
         on p.`user_id` = u.`id`
-        on p.`commodity = c.`id`
+        on p.`commodity_id` = c.`id`
         WHERE p.`commodity_id` = #{commodity_id}
     </select>
     <insert id="insert" parameterType="PayLogDTO">

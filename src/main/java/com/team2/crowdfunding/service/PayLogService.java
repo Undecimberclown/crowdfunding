@@ -14,7 +14,7 @@ public class PayLogService {
     @Autowired
     private SqlSession session;
 
-    private final String NAMESPACE = "PayLogMapper";
+    private final String NAMESPACE = "crowdfunding.PayLogMapper";
 
     public Map selectOne(int id) {
         return session.selectOne(NAMESPACE + ".selectOne", id);
@@ -25,6 +25,6 @@ public class PayLogService {
         session.insert(NAMESPACE + ".insert", payLogDTO);
     }
 
-    public List<HashMap> userAll(){return  session.selectList(NAMESPACE + ".userAll");}
+    public List<HashMap> userAll(int id){return  session.selectList(NAMESPACE + ".userAll", id);}
 
 }
