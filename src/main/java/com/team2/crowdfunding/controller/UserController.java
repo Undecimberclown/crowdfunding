@@ -123,7 +123,7 @@ public class UserController {
         } else {
             resultMap.put("message", "false");
         }
-
+        System.out.println(resultMap);
         return resultMap;
     }
 
