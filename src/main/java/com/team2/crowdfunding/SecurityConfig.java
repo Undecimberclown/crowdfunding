@@ -20,10 +20,7 @@ public class SecurityConfig {
 
     // 해당 메서드의 리턴되는 오브젝트를 IoC로 등록해준다.
 
-    @Bean
-    public BCryptPasswordEncoder encodePassword(){
-        return new BCryptPasswordEncoder();
-    }
+
 
 
     @Bean
@@ -48,7 +45,7 @@ public class SecurityConfig {
                 .userService(principalOauth2UserService);
         return http.build();
         // 해야할일
-        // 정적리소스파일 시큐리티 적용 취소 추가 <영상
+
         // 테스트로 업로드 후 푸쉬
         // 다중 업로드 등
     }
