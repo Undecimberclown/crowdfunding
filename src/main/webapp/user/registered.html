@@ -88,15 +88,25 @@ html, body {
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+
         <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
-            <ul class="navbar-nav ml-auto mb-2 mb-lg-0" id="navbarLeftUl">
-                <li class="nav-item">
-                    <button class="nav-link btn text-dark" onclick="location.href='logIn.html'">로그인</button>
-                </li>
-                <li class="nav-item">
-                    <button class="nav-link btn text-dark" onclick="location.href='register.html'">회원가입</button>
-                </li>
-            </ul>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                   aria-expanded="false">
+                    000님
+                </a>
+                <ul class="dropdown-menu">
+                    <ul class="navbar-nav ml-auto mb-2 mb-lg-0" id="navbarLeftUl">
+                        <li class="nav-item">
+                            <button class="nav-link btn text-dark" onclick="location.href='logIn.html'">로그인</button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link btn text-dark" onclick="location.href='register.html'">회원가입</button>
+                        </li>
+                    </ul>
+                </ul>
+            </li>
+
         </div>
     </div>
 </nav>
