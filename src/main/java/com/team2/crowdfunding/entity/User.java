@@ -21,22 +21,26 @@ public class User {
     private String nickname;
     private String username;
     private String password;
-//    private String email;
+    private String email;
     private String role; // ROLE_USER, ROLE_ADMIN
 
-
+    private String provider;
+    private String provider_id;
 
 //    @CreationTimestamp // INSERT 쿼리 시 현재 시간으로 생성
 //    private Timestamp create_date;
 //    // 회원가입 날짜
 
+
     @Builder
-    public User(String username, String password, String role) {
+    public User( String nickname, String username, String email, String password, String role, String provider, String provider_id) {
+
+        this.nickname = nickname;
         this.username = username;
         this.password = password;
-//        this.email = email;
         this.role = role;
-
-//        this.create_date = createDate;
+        this.email = email;
+        this.provider = provider;
+        this.provider_id = provider_id;
     }
 }

@@ -44,8 +44,9 @@ public class BoardController {
         System.out.println("/test/oauth/login ====================");
         OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
         System.out.println("authentication :" + oAuth2User.getAttributes());
+        System.out.println("oauth2User : " + oAuth.getAttributes());
 
-        return "세션 정보 확인하기";
+        return "OAuth 세션 정보 확인하기";
     }
 
     @GetMapping({"","/"})
@@ -96,6 +97,7 @@ public class BoardController {
 
     @GetMapping("/user")
     public @ResponseBody String user(@AuthenticationPrincipal PrincipalDetails principalDetails){
+        System.out.println("principalDetails: " +principalDetails.getUser());
         return "user";
     }
 
