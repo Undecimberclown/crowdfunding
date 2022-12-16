@@ -156,18 +156,21 @@
                 type: 'post',
                 success: function(data, status, xhr){
                     if(data.message == "true"){
-                        logIn = data.logIn;
-                        $('#writer').text(logIn.nickname);
+                        logIn = data.logIn.user;
+                        console.log(logIn);
+                        $('#writer').val(logIn.nickname);
+                        $('#writer').attr('readonly', 'true');
                     }
                     else if(data.message == 'false'){
-<!--                        Swal.fire({-->
-<!--                            icon: 'error',-->
-<!--                            title: '로그인이 필요합니다.',-->
-<!--                            footer: '<a href="/user/register.html" style="text-decoration-line: none;">계정이 없으신가요?</a>',-->
-<!--                        }).then((result) => {-->
-<!--                            document.location.href='/user/logIn.html';-->
-<!--                        });-->
+                        Swal.fire({
+                            icon: 'error',
+                            title: '로그인이 필요합니다.',
+                            footer: '<a href="/user/register.html" style="text-decoration-line: none;">계정이 없으신가요?</a>',
+                        }).then((result) => {
+                            document.location.href='/user/logIn.html';
+                        });
                     }
+                    console.log(data);
                 }
             });
         });
