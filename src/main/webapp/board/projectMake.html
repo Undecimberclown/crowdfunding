@@ -197,13 +197,13 @@
                         document.location.href='/board/commodity.html';
                     }
                     else if(data.message == 'fail'){
-<!--                        Swal.fire({-->
-<!--                            icon: 'error',-->
-<!--                            title: '로그인이 필요합니다.',-->
-<!--                            footer: '<a href="/user/register.html" style="text-decoration-line: none;">계정이 없으신가요?</a>',-->
-<!--                        }).then((result) => {-->
-<!--                            document.location.href='/user/logIn.html';-->
-<!--                        });-->
+                        Swal.fire({
+                            icon: 'error',
+                            title: '로그인이 필요합니다.',
+                            footer: '<a href="/register" style="text-decoration-line: none;">계정이 없으신가요?</a>',
+                        }).then((result) => {
+                            document.location.href='/loginPage';
+                        });
                     }
                 }
             });
