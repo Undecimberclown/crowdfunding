@@ -68,7 +68,7 @@
 </nav>
 
     <div class="layout container">
-        <form action="/board/writepro" method="post"
+        <form action="/project/upsert" method="post"
               enctype="multipart/form-data" class="mt-4">
             <div class="row mb-3">
                 <!-- title input -->
@@ -135,9 +135,10 @@
     <script>
         CKEDITOR.replace('editor');
 
+        let logIn;
+
         let date = new Date();
-        console.log(date.getFullYear() + "/" + date.getMonth() + "/" + date.getDate());
-        $('#date-picker-start').val(date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDate());
+        $('#funding-start-date').val(date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate());
 
         $(document).ready(function(){
             $('#funding-start-date').datepicker({
@@ -155,7 +156,7 @@
                 type: 'post',
                 success: function(data, status, xhr){
                     if(data.message == "true"){
-                        let logIn = data.logIn;
+                        logIn = data.logIn;
                         $('#writer').text(logIn.nickname);
                     }
                     else if(data.message == 'false'){
@@ -171,7 +172,39 @@
             });
         });
 
+        function projectInsert(){
+            let projectData = JSON.stringify({
+                title: ('#title'),
+                writer_id: logIn.id,
+                content: ('#content'),
+                filename: ('#file'),
+                target_money: ('#target_money'),
+                funding_start_date: ('#funding_start_date'),
+                funding_end_date: ('#funding_end_date')
+            });
 
+            $.ajax({
+                url: '/project/upsert',
+                type: 'post',
+                dataType: 'json',
+                contentType: 'application/json; charset:UTF-8',
+                success: function(data, status, xhr){
+                    if(data.message == 'success'){
+                        console.log('작성에 성공하셨습니다.');
+                        document.location.href='/board/commodity.html';
+                    }
+                    else if(data.message == 'fail'){
+<!--                        Swal.fire({-->
+<!--                            icon: 'error',-->
+<!--                            title: '로그인이 필요합니다.',-->
+<!--                            footer: '<a href="/user/register.html" style="text-decoration-line: none;">계정이 없으신가요?</a>',-->
+<!--                        }).then((result) => {-->
+<!--                            document.location.href='/user/logIn.html';-->
+<!--                        });-->
+                    }
+                }
+            });
+        }
     </script>
 </body>
 </html>
