@@ -6,6 +6,7 @@ import com.team2.crowdfunding.entity.User;
 import com.team2.crowdfunding.repository.UserRepository;
 import com.team2.crowdfunding.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -35,6 +36,12 @@ public class BoardController {
 
         System.out.println("userDetails :" + userDetails.getUser());
         return "세션 정보 확인하기";
+    }
+
+    @PutMapping("/board/{id}/like")
+    public ResponseEntity<Project> likePost(@PathVariable int id) {
+        boardService.likePost(id);
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/test/oauth/login")

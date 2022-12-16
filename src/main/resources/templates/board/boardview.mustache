@@ -62,7 +62,8 @@
         </div>
     </div>
 </nav>
-
+<button type="button" class="btn btn-primary" onclick="likePost()">Like</button>
+<span id="totalLikes">{{ Project.totalLikes }}</span> likes
 <!-- Page header with logo and tagline-->
 <header class="py-5 bg-light border-bottom mb-4">
     <div class="container">
@@ -186,6 +187,18 @@
 </footer>
 
 <script>
+function likePost() {
+  // 기본적인 좋아요 기능 수행
+  // 좋아요 수 갱신
+  var totalLikesSpan = document.getElementById("totalLikes");
+  totalLikesSpan.textContent = parseInt(totalLikesSpan.textContent) + 1;
+
+  // 서버로 요청 전송
+  var xhr = new XMLHttpRequest();
+  xhr.open("PUT", "/board/{{Project.id}}/like", true);
+  xhr.send();
+}
+
     $(document).ready(function(){
         let paramUrl = '?' + location.href.split('?')[1];
         let params = new URLSearchParams(paramUrl);

@@ -35,5 +35,10 @@ public class Project extends BaseTimeEntity{
     @Column(name = "filepath")
     private String filepath;
 
+    private int likes;
+    @Column(name = "total_likes")
+    private int totalLikes;
+
+
 
 }

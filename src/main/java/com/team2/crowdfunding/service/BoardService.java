@@ -17,6 +17,16 @@ public class BoardService {
     @Autowired
     private BoardRepository boardRepository;
 
+    public Project likePost(int id) {
+        Project project = boardRepository.findById(id).orElseThrow();
+        project.setLikes(project.getLikes() + 1);
+        project.setTotalLikes(project.getTotalLikes() + 1);
+        return boardRepository.save(project);
+    }
+    public Project findById(int id) {
+        return boardRepository.findById(id).orElse(null);
+    }
+
     //글 작성
     public void write(Project project, MultipartFile file) throws Exception{
 
