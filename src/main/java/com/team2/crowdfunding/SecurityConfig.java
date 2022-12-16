@@ -27,13 +27,14 @@ public class SecurityConfig {
     protected SecurityFilterChain configure(HttpSecurity http) throws Exception {
         http.csrf().disable(); //csrf 비활성화
         http.authorizeRequests()
-                .antMatchers("/user/logInChk").permitAll() // 예외처리
-                .antMatchers("/user/register").permitAll()
+
                 .antMatchers("/user/**").authenticated() // 인증만 되면 들어갈 수 있는 주소
                 .antMatchers("/manager/**").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_MANAGER')")
                 .antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
                 // 정적 리소스 허용
                 .antMatchers("/js/**", "/files/**").permitAll()
+                .antMatchers("/user/logInChk").permitAll() // 예외처리
+                .antMatchers("/user/register").permitAll()
                 .anyRequest().permitAll()
                 .and()
                 .formLogin()

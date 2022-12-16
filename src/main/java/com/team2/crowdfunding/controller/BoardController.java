@@ -87,7 +87,7 @@ public class BoardController {
         String encPassword = bCryptPasswordEncoder.encode(rawPassword);
         user.setPassword(encPassword);
         userRepository.save(user);
-        return "redirect:/login";
+        return "redirect:/loginPage";
     }
 
     @Secured("ROLE_ADMIN")
