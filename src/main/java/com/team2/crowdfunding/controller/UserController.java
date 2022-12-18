@@ -117,17 +117,17 @@ public class UserController {
 
     //Authentication 객체를 통해 Security Session에 저장된 로그인 정보 받기
     @ResponseBody
-    @PostMapping("logInChk")
+    @GetMapping("logInChk")
     public Map<String, Object> logInChk(Authentication authentication) {
         Map<String, Object> resultMap = new HashMap<>();
 
         //로그인 정보를 UserDetails로 형변환해 전달
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         if (authentication != null) {
-            resultMap.put("message", "true");
+            resultMap.put("message", "success");
             resultMap.put("logIn", userDetails);
         } else {
-            resultMap.put("message", "false");
+            resultMap.put("message", "fail");
         }
 
         return resultMap;

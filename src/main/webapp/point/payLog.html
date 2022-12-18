@@ -58,15 +58,15 @@
   $(document).ready(function(){
         $.ajax({
             url: '/user/logInChk',
-            type: 'post',
+            type: 'get',
             success: function(data, status, xhr){
             console.log(data);
-                if(data.message == 'true'){
+                if(data.message == 'success'){
                     let logIn = data.data
                     $('#choName').text(logIn.nickname)
 
                 }
-                else if(data.message == 'false'){
+                else if(data.message == 'fail'){
                     $('#choName').text('로그인/회원가입')
                 }
 

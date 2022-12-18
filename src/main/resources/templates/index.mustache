@@ -170,14 +170,14 @@
     $(document).ready(function(){
         $.ajax({
             url: '/user/logInChk',
-            type: 'post',
+            type: 'get',
             success: function(data, status, xhr){
-                if(data.message == 'true'){
+                if(data.message == 'success'){
                     $('#logInBtn').text('로그아웃');
                     $('#logInBtn').attr('onclick', 'logOut()');
                     $('#chargeBtn').removeAttr('hidden');
                 }
-                else if(data.message == 'false'){
+                else if(data.message == 'fail'){
                     $('#logInBtn').text('로그인/회원가입');
                     $('#logInBtn').attr('onclick', 'moveToLogIn()');
                     $('#chargeBtn').attr('type', 'hidden');
