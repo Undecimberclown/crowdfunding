@@ -71,12 +71,12 @@ public class BoardController {
 
     @GetMapping("/loginPage")
     public String loginPage(){
-        return "board/loginPage";
+        return "/board/loginPage";
     }
 
     @GetMapping("/register")
     public String register(){
-        return "board/register";
+        return "/board/register";
     }
 
     @PostMapping("/registerpro")
