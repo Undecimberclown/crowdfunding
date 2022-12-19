@@ -63,9 +63,10 @@
 
                 <!-- writer input -->
                 <div class="col">
-                    <label for="writer">쓰는 사람</label> <span class="align-middle text-danger">*</span>
-                    <input class="form-control" name="writer_id" id="writer" type="text">
+                    <label for="writer">작성자</label> <span class="align-middle text-danger">*</span>
+                    <input class="form-control" name="writer" id="writer" type="text">
                 </div>
+
 
             </div>
 
@@ -92,9 +93,9 @@
                 <div class="col">
                     <label>프로젝트 날짜</label> <span class="align-middle text-danger">*</span>
                     <div class="input-group">
-                        <input class="form-control" id="funding_start_date" name="date-picker">
+                        <input class="form-control" id="funding_start_date" name="funding_start_date">
                         <span class="input-group-text">~</span>
-                        <input class="form-control" id="funding_end_date" name="date-picker" onchange="validateWrite()">
+                        <input class="form-control" id="funding_end_date" name="funding_end_date" onchange="validateWrite()">
                     </div>
                 </div>
             </div>
@@ -116,21 +117,26 @@
         </form>
     </div>
 
+    <!-- writer_id text -->
+    <div style="transform: scale(0);">
+        <input id="writer_id" name="writer_id">
+    </div>
 <script>
         CKEDITOR.replace('content');
 
         let logIn;
 
         let date = new Date();
-        $('#funding-start-date').val(date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate());
+        $('#funding_start_date').val(date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate());
+
 
         $(document).ready(function(){
-            $('#funding-start-date').datepicker({
+            $('#funding_start_date').datepicker({
                 startView: 2,
                 language: "ko"
             });
 
-            $('#funding-end-date').datepicker({
+            $('#funding_end_date').datepicker({
                 startView: 2,
                 language: "ko"
             });
@@ -143,6 +149,8 @@
                         logIn = data.logIn.user;
                         console.log(logIn);
                         $('#writer').val(logIn.nickname);
+                        $('#writer_id').val(logIn.id);
+                        console.log(logIn.id);
                         $('#writer').attr('readonly', 'true');
                     }
                     else{
@@ -159,6 +167,7 @@
             });
 
             validateWrite();
+
         });
 
         function validateWrite(){
@@ -168,10 +177,10 @@
             else{
                 $('#writeBtn').attr('disabled', 'true');
             }
-            console.log('onChange() 함수 실행');
         }
 
         function projectInsert(){
+
             let projectData = JSON.stringify({
                 title: $('#title'),
                 writer_id: logIn.id,
@@ -182,6 +191,8 @@
                 funding_end_date: $('#funding_end_date')
             });
 
+            console.log(projectData);
+
             $.ajax({
                 url: '/project/upsert',
                 type: 'post',
@@ -190,7 +201,7 @@
                 success: function(data, status, xhr){
                     if(data.message == 'success'){
                         console.log('작성에 성공하셨습니다.');
-                        document.location.href='/board/commodity.html';
+                        document.location.href='/';
                     }
                     else if(data.message == 'fail'){
                         Swal.fire({
