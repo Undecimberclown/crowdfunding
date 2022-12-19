@@ -52,13 +52,13 @@
 </nav>
 
     <div class="layout container">
-        <form action="/project/upsert" method="post"
+        <form action="/board/writepro" method="post"
               enctype="multipart/form-data" class="mt-4">
             <div class="row mb-3">
                 <!-- title input -->
                 <div class="col-8">
                     <label for="title">제목</label> <span class="align-middle text-danger">*</span>
-                    <input class="form-control" name="title" id="title" type="text">
+                    <input class="form-control" name="title" id="title" onchange="validateWrite()">
                 </div>
 
                 <!-- writer input -->
@@ -71,17 +71,17 @@
 
             <div class="row mb-3">
                 <div class="col">
-                    <label for="image">대표 이미지</label> <span class="align-middle text-danger">*</span>
-                    <input class="form-control" name="file" id="image" type="file">
+                    <label for="file">대표 이미지</label> <span class="align-middle text-danger">*</span>
+                    <input class="form-control" name="file" id="file" type="file" onchange="validateWrite()">
                 </div>
             </div>
 
             <!-- target-money input -->
             <div class="row mb-3">
                 <div class="col">
-                    <label for="target-money">목표 금액</label> <span class="align-middle text-danger">*</span>
+                    <label for="target_money">목표 금액</label> <span class="align-middle text-danger">*</span>
                     <div class="input-group">
-                        <input class="form-control" name="target-money" id="target-money">
+                        <input class="form-control" name="target_money" id="target_money" onchange="validateWrite()">
                         <span class="input-group-text">원</span>
                     </div>
                 </div>
@@ -92,9 +92,9 @@
                 <div class="col">
                     <label>프로젝트 날짜</label> <span class="align-middle text-danger">*</span>
                     <div class="input-group">
-                        <input class="form-control" id="funding-start-date" name="date-picker">
+                        <input class="form-control" id="funding_start_date" name="date-picker">
                         <span class="input-group-text">~</span>
-                        <input class="form-control" id="funding-end-date" name="date-picker">
+                        <input class="form-control" id="funding_end_date" name="date-picker" onchange="validateWrite()">
                     </div>
                 </div>
             </div>
@@ -102,22 +102,22 @@
             <!-- CKEditor Textarea -->
             <div class="row mb-3">
                 <div class="col">
-                    <label for="editor">내용</label> <span class="align-middle text-danger">*</span>
-                    <textarea id="editor" name="editor"></textarea>
+                    <label for="content">내용</label> <span class="align-middle text-danger">*</span>
+                    <textarea id="content" name="content" onchange="validateWrite()"></textarea>
                 </div>
             </div>
 
             <!-- Form Submit Button -->
             <div class="row mb-3">
                 <div class="col text-end">
-                    <button type="submit" class="btn btn-success">작성</button>
+                    <button type="submit" id="writeBtn" class="btn btn-success">작성</button>
                 </div>
             </div>
         </form>
     </div>
 
-    <script>
-        CKEDITOR.replace('editor');
+<script>
+        CKEDITOR.replace('content');
 
         let logIn;
 
@@ -157,17 +157,29 @@
                     console.log(data);
                 }
             });
+
+            validateWrite();
         });
+
+        function validateWrite(){
+            if($('#title').val() && $('#file').val() && $('#target_money').val() && $('#funding_end_date').val()){
+                $('#writeBtn').removeAttr('disabled');
+            }
+            else{
+                $('#writeBtn').attr('disabled', 'true');
+            }
+            console.log('onChange() 함수 실행');
+        }
 
         function projectInsert(){
             let projectData = JSON.stringify({
-                title: ('#title'),
+                title: $('#title'),
                 writer_id: logIn.id,
-                content: ('#content'),
-                filename: ('#file'),
-                target_money: ('#target_money'),
-                funding_start_date: ('#funding_start_date'),
-                funding_end_date: ('#funding_end_date')
+                content: $('#content'),
+                filename: $('#file'),
+                target_money: $('#target_money'),
+                funding_start_date: $('#funding_start_date'),
+                funding_end_date: $('#funding_end_date')
             });
 
             $.ajax({

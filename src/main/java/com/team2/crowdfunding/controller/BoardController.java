@@ -124,7 +124,7 @@ public class BoardController {
         System.out.println("제목" + project.getTitle());
         System.out.println("내용" + project.getContent());
 
-        return "";
+        return "redirect:/";
     }
     @GetMapping("/board/view")
     public String boardView(Model model, Integer id) {
