@@ -6,6 +6,7 @@ import com.team2.crowdfunding.entity.User;
 import com.team2.crowdfunding.repository.UserRepository;
 import com.team2.crowdfunding.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -37,6 +38,12 @@ public class BoardController {
         return "세션 정보 확인하기";
     }
 
+    @PutMapping("/board/{id}/like")
+    public ResponseEntity<Project> likePost(@PathVariable int id) {
+        boardService.likePost(id);
+        return ResponseEntity.noContent().build();
+    }
+
     @GetMapping("/test/oauth/login")
     public @ResponseBody String testOAuthLogin(
             Authentication authentication,
@@ -64,12 +71,12 @@ public class BoardController {
 
     @GetMapping("/loginPage")
     public String loginPage(){
-        return "board/loginPage";
+        return "/board/loginPage";
     }
 
     @GetMapping("/register")
     public String register(){
-        return "board/register";
+        return "/board/register";
     }
 
     @PostMapping("/registerpro")
@@ -80,7 +87,7 @@ public class BoardController {
         String encPassword = bCryptPasswordEncoder.encode(rawPassword);
         user.setPassword(encPassword);
         userRepository.save(user);
-        return "redirect:/login";
+        return "redirect:/loginPage";
     }
 
     @Secured("ROLE_ADMIN")

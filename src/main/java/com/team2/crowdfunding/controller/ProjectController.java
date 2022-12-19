@@ -59,13 +59,21 @@ import java.util.Map;
     public String moveToWritePage(){return "/board/upsert";}
 
     @PostMapping("upsert")
-    public String upsert(HttpSession session, ProjectDTO projectDTO){
+    @ResponseBody
+    public Map<String, Object> upsert(HttpSession session, @RequestBody ProjectDTO projectDTO){
         UserDTO logIn = (UserDTO) session.getAttribute("logIn");
+
+        Map<String, Object> resultMap = new HashMap<>();
         if (logIn == null) {
-            return "redirect:/";
-        } else if (projectDTO.getId() == 0){
+            resultMap.put("message", "fail");
+            return resultMap;
+        }
+
+        if (projectDTO.getId() == 0){
             projectDTO.setWriter_id(logIn.getId());
             projectService.insert(projectDTO);
+
+            resultMap.put("message", "success");
         } else {
             Map<Object, Object> original = projectService.selectOne(projectDTO.getId());
             Integer writerId = (Integer) original.get("writerID");
@@ -74,14 +82,16 @@ import java.util.Map;
             }
         }
 
-        return "redirect:/board/showOne/" + projectDTO.getId();
+        return resultMap;
     }
 
     @GetMapping("delete/{id}")
     public String delete(@PathVariable int id){
         projectService.delete(id);
         return "redirect:/board/showAll/1";
-    }@ResponseBody
+    }
+
+    @ResponseBody
     @PostMapping("dateChk")
     public Map<String, Object> dateChk(@RequestBody ProjectDTO projectDTO){
         Map<String, Object> resultMap = new HashMap<>();

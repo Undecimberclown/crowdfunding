@@ -10,6 +10,9 @@ import com.team2.crowdfunding.service.UserService;
 import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.mail.MailProperties;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -17,6 +20,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
@@ -111,19 +115,21 @@ public class UserController {
         return "redirect:/";
     }
 
+    //Authentication 객체를 통해 Security Session에 저장된 로그인 정보 받기
     @ResponseBody
-    @PostMapping("logInChk")
-    public Map<String, Object> logInChk(HttpSession session) {
-        UserDTO logIn = (UserDTO) session.getAttribute("logIn");
-
+    @GetMapping("logInChk")
+    public Map<String, Object> logInChk(Authentication authentication) {
         Map<String, Object> resultMap = new HashMap<>();
-        if (logIn != null) {
-            resultMap.put("message", "true");
-            resultMap.put("logIn", logIn);
+
+        //로그인 정보를 UserDetails로 형변환해 전달
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        if (authentication != null) {
+            resultMap.put("message", "success");
+            resultMap.put("logIn", userDetails);
         } else {
-            resultMap.put("message", "false");
+            resultMap.put("message", "fail");
         }
-        System.out.println(resultMap);
+
         return resultMap;
     }
 

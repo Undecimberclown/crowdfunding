@@ -20,15 +20,20 @@
         SELECT COUNT(`id`) FROM `project`
     </select>
     <insert id="insert" parameterType="projectDTO" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO `project`(`title`, `img_url`, `content`, `writer_id`, `start_date`, `end_date`)
-        VALUES(#{title},  #{content}, #{writer_id}, NOW(), )
+        INSERT INTO `project`(`title`, `writer_id`, `target_money`, `funding_start_date`, `funding-end_date`, `content`, `filename`, `filepath`)
+        VALUES(#{title}, #{writer_id}, #{target_money}, #{funding_start_date}, #{funding_end_date}, #{content}, #{filename}, #{filepath`})
     </insert>
     <update id="update" parameterType="projectDTO">
         UPDATE `project` SET
-        `title` = #{title}
-
-        `content` = #{content}
-
+        `title` = #{title},
+        `writer_id` = #{writer_id},
+        `target_money` = #{target_money},
+        `funding_start_date` = #{funding_start_date},
+        `funding-end_date` = #{funding_end_date},
+        `content` = #{content},
+        `filename` = #{filename},
+        `filepath` = #{filepath`}
+        WHERE `id` = #{id}
     </update>
     <delete id="delete" parameterType="int">
         DELETE FROM `project`
