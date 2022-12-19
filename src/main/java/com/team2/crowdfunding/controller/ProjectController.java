@@ -58,8 +58,9 @@ import java.util.Map;
     @GetMapping("write")
     public String moveToWritePage(){return "/board/upsert";}
 
-    @PostMapping("upsert")
+
     @ResponseBody
+    @PostMapping("upsert")
     public Map<String, Object> upsert(HttpSession session, @RequestBody ProjectDTO projectDTO){
         UserDTO logIn = (UserDTO) session.getAttribute("logIn");
 
