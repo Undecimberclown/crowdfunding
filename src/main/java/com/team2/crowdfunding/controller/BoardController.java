@@ -159,6 +159,10 @@ public class BoardController {
         return "redirect:/index";
     }
 
+    @GetMapping("/funding")
+    public String boardFunding(){
+        return "/board/funding";
+    }
 
     // 글 작성 처리, 게시글 리스트
     //https://youtu.be/XytVcdgiVRk

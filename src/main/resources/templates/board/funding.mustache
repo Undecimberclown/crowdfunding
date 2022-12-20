@@ -13,6 +13,85 @@
     </Script>
 </head>
 <body>
+<nav class="navbar navbar-expand-lg bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/"><b>크라우드 펀딩</b></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link btn" id="logInBtn" onclick="moveToLogIn()">로그인/회원가입</button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link btn" onclick="moveToShow()">0000</button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link btn" id="chargeBtn" onclick="location.href='/point/charge.html';" hidden>포인트 충전하기</button>
+                </li>
+            </ul>
+            <form class="d-flex" role="search">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
 
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-6">
+    <!-- funding project title -->
+    <h1 class="text-center">title</h1>
+    <div class="row justify-content-center">
+        <!-- username -->
+        <div class="col-2">
+            아이디 :
+            <p id="username"></p>
+        </div>
+
+        <!-- user point -->
+        <div class="col-2">
+            포인트 :
+            <p id="point"></p>원
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function(){
+        $.ajax({
+            url: '/user/logInChk',
+            type: 'get',
+            success: function(data, status, xhr){
+                if(data.message == 'success'){
+                    logIn = data.logIn.user;
+                    console.log(data);
+                    $('#logInBtn').text('로그아웃');
+                    $('#logInBtn').attr('onclick', 'logOut()');
+                    $('#chargeBtn').removeAttr('hidden');
+                    $('#username').text(logIn.username);
+                    $('#point').text(logIn.point);
+                }
+                else{
+                    Swal.fire({
+                        icon: 'error',
+                        title: '로그인이 필요합니다.',
+                        footer: '<a href="/register" style="text-decoration-line: none;">계정이 없으신가요?</a>',
+                    }).then((result) => {
+                        document.location.href='/loginPage';
+                    });
+                }
+
+            }
+        });
+
+        $.ajax({
+            url: ''
+        });
+    });
+</script>
 </body>
 </html>
