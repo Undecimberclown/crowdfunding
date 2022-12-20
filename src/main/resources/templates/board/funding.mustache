@@ -68,12 +68,9 @@
             success: function(data, status, xhr){
                 if(data.message == 'success'){
                     logIn = data.logIn.user;
-                    console.log(data);
                     $('#logInBtn').text('로그아웃');
                     $('#logInBtn').attr('onclick', 'logOut()');
                     $('#chargeBtn').removeAttr('hidden');
-                    $('#username').text(logIn.username);
-                    $('#point').text(logIn.point);
                 }
                 else{
                     Swal.fire({
@@ -86,10 +83,6 @@
                 }
 
             }
-        });
-
-        $.ajax({
-            url: ''
         });
     });
 </script>
