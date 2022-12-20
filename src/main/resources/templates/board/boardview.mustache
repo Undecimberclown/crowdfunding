@@ -75,7 +75,9 @@
                             <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla.</p>
                             <h2 class="card-title h4">Post Title</h2>
                             <a href="#!"><img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
-                            <p class="card-text">{{Project.content}}</p>
+                            <p class="card-text">
+                                {{Project.content}}
+                            </p>
                             <a class="btn btn-primary" href="#!">Read more →</a>
                         </div>
                     </div>
@@ -102,7 +104,7 @@
                     {{#Project.number_of_paid_users}}{{Project.number_of_paid_users}}{{/Project.number_of_paid_users}}
                     {{^Project.number_of_paid_users}}number_of_paid_user 입력하지 않음{{/Project.number_of_paid_users}}
                     명 <br>
-                    <a href="/board/funding" class="btn btn-success">펀딩하기</a>
+                    <a href="/funding" class="btn btn-success">펀딩하기</a>
                 </div>
             </div>
             <!-- Side widget-->
@@ -187,14 +189,14 @@ function likePost() {
 
         $.ajax({
             url: '/user/logInChk',
-            type: 'post',
+            type: 'get',
             success: function(data, status, xhr){
-                if(data.message == 'true'){
+                if(data.message == 'success'){
                     $('#logInBtn').text('로그아웃');
                     $('#logInBtn').attr('onclick', 'logOut()');
                      $('#chargeBtn').removeAttr('hidden');
                 }
-                else if(data.message == 'false'){
+                else if(data.message == 'fail'){
                     $('#logInBtn').text('로그인/회원가입');
                     $('#logInBtn').attr('onclick', 'moveToLogIn()');
                      $('#chargeBtn').attr('hidden');

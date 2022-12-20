@@ -150,14 +150,14 @@
                         console.log(logIn);
                         $('#writer').val(logIn.nickname);
                         $('#writer_id').val(logIn.id);
-                        console.log(logIn.id);
+                        console.log($('#writer_id').val());
                         $('#writer').attr('readonly', 'true');
                     }
                     else{
                         Swal.fire({
                             icon: 'error',
                             title: '로그인이 필요합니다.',
-                            footer: '<a href="/board/register" style="text-decoration-line: none;">계정이 없으신가요?</a>',
+                            footer: '<a href="/register" style="text-decoration-line: none;">계정이 없으신가요?</a>',
                         }).then((result) => {
                             document.location.href='/loginPage';
                         });
@@ -186,34 +186,34 @@
                 writer_id: logIn.id,
                 content: $('#content'),
                 filename: $('#file'),
-                target_money: $('#target_money'),
-                funding_start_date: $('#funding_start_date'),
-                funding_end_date: $('#funding_end_date')
+                target_money: $('#target_money')
+<!--                funding_start_date: $('#funding_start_date'),-->
+<!--                funding_end_date: $('#funding_end_date')-->
             });
 
             console.log(projectData);
 
-            $.ajax({
-                url: '/project/upsert',
-                type: 'post',
-                dataType: 'json',
-                contentType: 'application/json; charset:UTF-8',
-                success: function(data, status, xhr){
-                    if(data.message == 'success'){
-                        console.log('작성에 성공하셨습니다.');
-                        document.location.href='/';
-                    }
-                    else if(data.message == 'fail'){
-                        Swal.fire({
-                            icon: 'error',
-                            title: '로그인이 필요합니다.',
-                            footer: '<a href="/register" style="text-decoration-line: none;">계정이 없으신가요?</a>',
-                        }).then((result) => {
-                            document.location.href='/loginPage';
-                        });
-                    }
-                }
-            });
+<!--            $.ajax({-->
+<!--                url: '/project/upsert',-->
+<!--                type: 'post',-->
+<!--                dataType: 'json',-->
+<!--                contentType: 'application/json; charset:UTF-8',-->
+<!--                success: function(data, status, xhr){-->
+<!--                    if(data.message == 'success'){-->
+<!--                        console.log('작성에 성공하셨습니다.');-->
+<!--                        document.location.href='/';-->
+<!--                    }-->
+<!--                    else if(data.message == 'fail'){-->
+<!--                        Swal.fire({-->
+<!--                            icon: 'error',-->
+<!--                            title: '로그인이 필요합니다.',-->
+<!--                            footer: '<a href="/register" style="text-decoration-line: none;">계정이 없으신가요?</a>',-->
+<!--                        }).then((result) => {-->
+<!--                            document.location.href='/loginPage';-->
+<!--                        });-->
+<!--                    }-->
+<!--                }-->
+<!--            });-->
         }
     </script>
 </body>
