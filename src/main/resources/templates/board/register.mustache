@@ -71,11 +71,11 @@ html, body {
 #inputBox button {
   padding: 3px 5px;
 }
-#navbarLeftUl{
-  margin-right: 40px;
+.navbar-brand{
+    margin-left: 40px;
 }
-#navbarRightUl{
-  margin-left: 40px;
+#navbarUl{
+    margin-right: 60px;
 }
 
 </style>
@@ -83,29 +83,22 @@ html, body {
 <!--NAV 바 -->
 <nav class="navbar navbar-expand-lg bg-light">
     <div class="container-fluid">
-        <a class="navbar-brand " href="/" id="navbarRightUl"><h3><b>크라우드 펀딩</b></h3></a>
+        <a class="navbar-brand" href="/" id="navbarRightUl"><h3><b>오키피오</b></h3></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                   aria-expanded="false">
-                    000님
-                </a>
-                <ul class="dropdown-menu">
-                    <ul class="navbar-nav ml-auto mb-2 mb-lg-0" id="navbarLeftUl">
-                        <li class="nav-item">
-                            <button class="nav-link btn text-dark" onclick="location.href='logIn.html'">로그인</button>
-                        </li>
-                        <li class="nav-item">
-                            <button class="nav-link btn text-dark" onclick="location.href='register.html'">회원가입</button>
-                        </li>
-                    </ul>
-                </ul>
-            </li>
+            <ul class="navbar-nav ml-auto mb-2 mb-lg-0" id="navbarUl">
+                <li class="nav-item right-tab">
+                    <button class="nav-link btn text-dark" onclick="location.href='/login'">로그인</button>
+                </li>
+
+                <li class="nav-item right-tab">
+                    <button class="nav-link btn text-dark" onclick="location.href='/register'">회원가입</button>
+                </li>
+            </ul>
 
         </div>
     </div>

@@ -66,9 +66,38 @@ html, body {
 #inputBox button {
   padding: 3px 5px;
 }
+.navbar-brand{
+    margin-left: 40px;
+}
+#navbarUl{
+    margin-right: 60px;
+}
 </style>
 
 <body class="text-center">
+
+<nav class="navbar navbar-expand-lg bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/" id="navbarRightUl"><h3><b>오키피오</b></h3></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto mb-2 mb-lg-0" id="navbarUl">
+                <li class="nav-item right-tab">
+                    <button class="nav-link btn text-dark" onclick="location.href='/login'">로그인</button>
+                </li>
+
+                <li class="nav-item right-tab">
+                    <button class="nav-link btn text-dark" onclick="location.href='/register'">회원가입</button>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+</nav>
 
 <!--  html 전체 영역을 지정하는 container -->
 <div id="container">
@@ -94,7 +123,7 @@ html, body {
                 <div class="button-login-box" >
                     <button type="submit" class="btn btn-primary btn-xs mb-2" style="width:100%">로그인</button>
                     <a href="/oauth2/authorization/google" class="btn btn-success btn-xs mb-2" style="width: 100%;">구글 로그인</a>
-                    <a href="/register" class="btn btn-success btn-xs" style="width: 100%;">회원가입</a>
+<!--                    <a href="/register" class="btn btn-success btn-xs" style="width: 100%;">회원가입</a>-->
                 </div>
             </form>
         </div>
